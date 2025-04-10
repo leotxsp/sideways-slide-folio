@@ -8,6 +8,7 @@ import Navigation from '@/components/Navigation';
 import HomeSlide from '@/components/slides/HomeSlide';
 import AboutSlide from '@/components/slides/AboutSlide';
 import SkillsSlide from '@/components/slides/SkillsSlide';
+import ProjectsSlide from '@/components/slides/ProjectsSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
     { id: 'home', component: <HomeSlide /> },
     { id: 'about', component: <AboutSlide /> },
     { id: 'skills', component: <SkillsSlide /> },
+    { id: 'projects', component: <ProjectsSlide /> },
     { id: 'contact', component: <ContactSlide /> }
   ];
 
