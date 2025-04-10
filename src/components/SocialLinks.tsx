@@ -1,33 +1,34 @@
 
 import React from 'react';
 import { Mail, Phone, Linkedin, Github } from 'lucide-react';
+import { personalInfo } from '@/data/personalInfo';
 
 const SocialLinks: React.FC = () => {
   return (
     <div className="fixed top-8 right-8 z-50 flex flex-col gap-4 md:flex-row md:gap-6">
       <a 
-        href="mailto:leotxsp@gmail.com" 
-        className="flex items-center gap-2 text-cream hover:text-orange transition-colors"
+        href={`mailto:${personalInfo.email}`} 
+        className="flex items-center gap-2 text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
         aria-label="Email"
       >
         <Mail className="w-5 h-5" />
-        <span className="hidden md:inline">leotxsp@gmail.com</span>
+        <span className="hidden md:inline">{personalInfo.email}</span>
       </a>
       
       <a 
-        href="tel:+5591989106163" 
-        className="flex items-center gap-2 text-cream hover:text-orange transition-colors"
+        href={`tel:${personalInfo.phone}`} 
+        className="flex items-center gap-2 text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
         aria-label="Phone"
       >
         <Phone className="w-5 h-5" />
-        <span className="hidden md:inline">+55 91 98910-6163</span>
+        <span className="hidden md:inline">{personalInfo.phone}</span>
       </a>
       
       <a 
-        href="https://www.linkedin.com/in/leonardosimplicio/" 
+        href={personalInfo.linkedin} 
         target="_blank" 
         rel="noopener noreferrer" 
-        className="flex items-center gap-2 text-cream hover:text-orange transition-colors"
+        className="flex items-center gap-2 text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
         aria-label="LinkedIn"
       >
         <Linkedin className="w-5 h-5" />
@@ -35,10 +36,10 @@ const SocialLinks: React.FC = () => {
       </a>
       
       <a 
-        href="https://github.com/" 
+        href={personalInfo.github} 
         target="_blank" 
         rel="noopener noreferrer" 
-        className="flex items-center gap-2 text-cream hover:text-orange transition-colors"
+        className="flex items-center gap-2 text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
         aria-label="GitHub"
       >
         <Github className="w-5 h-5" />

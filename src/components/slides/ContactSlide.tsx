@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Mail, Phone, Linkedin, MapPin } from 'lucide-react';
+import { personalInfo } from '@/data/personalInfo';
 
 const ContactSlide: React.FC = () => {
   return (
@@ -23,8 +24,8 @@ const ContactSlide: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-medium">Email</h3>
-                <a href="mailto:leotxsp@gmail.com" className="text-cream hover:text-orange transition-colors">
-                  leotxsp@gmail.com
+                <a href={`mailto:${personalInfo.email}`} className="text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange">
+                  {personalInfo.email}
                 </a>
               </div>
             </div>
@@ -35,8 +36,8 @@ const ContactSlide: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-medium">Telefone</h3>
-                <a href="tel:+5591989106163" className="text-cream hover:text-orange transition-colors">
-                  +55 91 98910-6163
+                <a href={`tel:${personalInfo.phone}`} className="text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange">
+                  {personalInfo.phone}
                 </a>
               </div>
             </div>
@@ -50,12 +51,12 @@ const ContactSlide: React.FC = () => {
               <div>
                 <h3 className="text-lg font-medium">LinkedIn</h3>
                 <a 
-                  href="https://www.linkedin.com/in/leonardosimplicio/" 
+                  href={personalInfo.linkedin}
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-cream hover:text-orange transition-colors"
+                  className="text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
                 >
-                  linkedin.com/in/leonardosimplicio
+                  LinkedIn
                 </a>
               </div>
             </div>
@@ -66,7 +67,7 @@ const ContactSlide: React.FC = () => {
               </div>
               <div>
                 <h3 className="text-lg font-medium">Localização</h3>
-                <p>Belém, Pará, Brasil</p>
+                <p>{personalInfo.location}</p>
               </div>
             </div>
           </div>
