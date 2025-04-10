@@ -80,7 +80,7 @@
   }
 
   .orange-text {
-    @apply text-orange dark:text-orange light-mode:text-orange;
+    @apply text-orange;
   }
 
   .orange-border {
@@ -88,7 +88,11 @@
   }
 
   .cream-text {
-    @apply text-cream dark:text-cream light-mode:text-dark;
+    @apply text-cream;
+  }
+
+  .light-mode .cream-text {
+    @apply text-dark;
   }
 
   .purple-text {
@@ -123,7 +127,11 @@
   }
 
   .skill-tag {
-    @apply bg-purple/20 text-cream light-mode:text-dark px-3 py-1 rounded-full text-sm font-medium border border-purple/30 transition-all;
+    @apply bg-purple/20 text-cream px-3 py-1 rounded-full text-sm font-medium border border-purple/30 transition-all;
+  }
+
+  .light-mode .skill-tag {
+    @apply text-dark;
   }
   
   .skill-tag:hover {
@@ -146,7 +154,11 @@
   }
   
   .scroll-thin::-webkit-scrollbar-track {
-    @apply bg-dark light-mode:bg-cream;
+    @apply bg-dark;
+  }
+  
+  .light-mode .scroll-thin::-webkit-scrollbar-track {
+    @apply bg-cream;
   }
   
   .scroll-thin::-webkit-scrollbar-thumb {

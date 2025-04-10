@@ -22,7 +22,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSlide, totalSlides, goTo
       <button 
         onClick={() => goToSlide(currentSlide - 1)}
         disabled={currentSlide === 0}
-        className="flex items-center justify-center w-12 h-12 rounded-full bg-dark light-mode:bg-cream border border-orange/50 light-mode:border-purple/50 text-cream light-mode:text-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-orange/10 light-mode:hover:bg-purple/10"
+        className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-orange/50 text-cream disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-orange/10 light-mode:bg-cream light-mode:border-purple/50 light-mode:text-dark light-mode:hover:bg-purple/10"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-6 h-6" />
@@ -46,7 +46,7 @@ const Navigation: React.FC<NavigationProps> = ({ currentSlide, totalSlides, goTo
       <button 
         onClick={() => goToSlide(currentSlide + 1)}
         disabled={currentSlide === totalSlides - 1}
-        className="flex items-center justify-center w-12 h-12 rounded-full bg-dark light-mode:bg-cream border border-orange/50 light-mode:border-purple/50 text-cream light-mode:text-dark disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-orange/10 light-mode:hover:bg-purple/10"
+        className="flex items-center justify-center w-12 h-12 rounded-full bg-dark border border-orange/50 text-cream disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-orange/10 light-mode:bg-cream light-mode:border-purple/50 light-mode:text-dark light-mode:hover:bg-purple/10"
         aria-label="Next slide"
       >
         <ChevronRight className="w-6 h-6" />
