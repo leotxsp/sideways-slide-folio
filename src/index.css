@@ -51,6 +51,10 @@
     scroll-behavior: smooth;
   }
 
+  body.light-mode {
+    @apply bg-cream text-dark;
+  }
+
   .slide-container {
     width: 100%;
     height: 100vh;
@@ -76,7 +80,7 @@
   }
 
   .orange-text {
-    @apply text-orange;
+    @apply text-orange dark:text-orange light-mode:text-orange;
   }
 
   .orange-border {
@@ -84,7 +88,7 @@
   }
 
   .cream-text {
-    @apply text-cream;
+    @apply text-cream dark:text-cream light-mode:text-dark;
   }
 
   .purple-text {
@@ -108,7 +112,7 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #fe6807;
+    @apply bg-orange;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
   }
@@ -119,7 +123,7 @@
   }
 
   .skill-tag {
-    @apply bg-purple/20 text-cream px-3 py-1 rounded-full text-sm font-medium border border-purple/30 transition-all;
+    @apply bg-purple/20 text-cream light-mode:text-dark px-3 py-1 rounded-full text-sm font-medium border border-purple/30 transition-all;
   }
   
   .skill-tag:hover {
@@ -132,17 +136,21 @@
     scrollbar-color: #fe6807 #09080d;
   }
 
+  .light-mode .scroll-thin {
+    scrollbar-color: #fe6807 #f3e9dc;
+  }
+
   /* Chrome, Edge, and Safari */
   .scroll-thin::-webkit-scrollbar {
     width: 5px;
   }
   
   .scroll-thin::-webkit-scrollbar-track {
-    background: #09080d;
+    @apply bg-dark light-mode:bg-cream;
   }
   
   .scroll-thin::-webkit-scrollbar-thumb {
-    background-color: #fe6807;
+    @apply bg-orange;
     border-radius: 20px;
   }
 }

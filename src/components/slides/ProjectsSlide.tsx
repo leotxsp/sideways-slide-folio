@@ -45,7 +45,7 @@ const ProjectsSlide: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {projects.map((project, index) => (
-            <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all">
+            <Card key={index} className="bg-dark/50 light-mode:bg-purple/10 border-purple/30 hover:border-orange/50 transition-all">
               <div className="w-full h-48 overflow-hidden rounded-t-lg">
                 <img 
                   src={project.image} 
@@ -54,7 +54,7 @@ const ProjectsSlide: React.FC = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-cream">{project.title}</CardTitle>
+                <CardTitle className="text-cream light-mode:text-dark">{project.title}</CardTitle>
                 <CardDescription className="text-purple">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
@@ -67,7 +67,7 @@ const ProjectsSlide: React.FC = () => {
               <CardFooter className="flex justify-between">
                 <Button 
                   variant="ghost" 
-                  className="text-cream hover:text-orange hover:bg-purple/20"
+                  className="text-cream light-mode:text-dark hover:text-orange hover:bg-purple/20"
                   asChild
                 >
                   <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -79,7 +79,7 @@ const ProjectsSlide: React.FC = () => {
                 {project.live && (
                   <Button 
                     variant="ghost" 
-                    className="text-cream hover:text-orange hover:bg-purple/20"
+                    className="text-cream light-mode:text-dark hover:text-orange hover:bg-purple/20"
                     asChild
                   >
                     <a href={project.live} target="_blank" rel="noopener noreferrer">
@@ -95,7 +95,7 @@ const ProjectsSlide: React.FC = () => {
 
         <div className="w-full max-w-3xl mx-auto">
           <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
-          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
+          <div className="bg-dark/50 light-mode:bg-purple/10 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
             <iframe 
               src="https://ghchart.rshah.org/fe6807/leotxsp" 
               width="100%" 
