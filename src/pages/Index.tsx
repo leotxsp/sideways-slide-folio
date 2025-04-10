@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import ThemeToggle from '@/components/ThemeToggle';
 import SocialLinks from '@/components/SocialLinks';
 import Navigation from '@/components/Navigation';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Slides
 import HomeSlide from '@/components/slides/HomeSlide';
@@ -15,6 +15,7 @@ const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [sliding, setSliding] = useState(false);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   
   const slides = [
     { id: 'home', component: <HomeSlide /> },
@@ -36,8 +37,10 @@ const Index = () => {
     }
   };
 
-  // Handle keyboard navigation
+  // Handle keyboard navigation only on desktop
   useEffect(() => {
+    if (isMobile) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') {
         goToSlide(currentSlide + 1);
@@ -50,10 +53,12 @@ const Index = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentSlide]);
+  }, [currentSlide, isMobile]);
 
-  // Handle wheel/scroll events for horizontal scrolling
+  // Handle wheel/scroll events for horizontal scrolling only on desktop
   useEffect(() => {
+    if (isMobile) return;
+    
     let lastScrollTime = 0;
     const scrollCooldown = 1000; // ms
 
@@ -77,10 +82,12 @@ const Index = () => {
     return () => {
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [currentSlide]);
+  }, [currentSlide, isMobile]);
 
-  // Handle touch events for mobile swiping
+  // Handle touch events for mobile swiping only on desktop
   useEffect(() => {
+    if (isMobile) return;
+    
     let touchStartX = 0;
     let touchEndX = 0;
     const minSwipeDistance = 50;
@@ -114,7 +121,7 @@ const Index = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [currentSlide]);
+  }, [currentSlide, isMobile]);
 
   return (
     <>
@@ -122,19 +129,29 @@ const Index = () => {
         <ThemeToggle />
         <SocialLinks />
         
-        <div className="slide-container">
-          <div 
-            ref={sliderRef}
-            className="slider"
-            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-          >
-            {slides.map((slide, index) => (
-              <div key={slide.id} className="slide scroll-thin px-4 py-20">
+        {isMobile ? (
+          <div className="mobile-container">
+            {slides.map((slide) => (
+              <div key={slide.id} className="w-full min-h-screen py-20 px-4">
                 {slide.component}
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          <div className="slide-container">
+            <div 
+              ref={sliderRef}
+              className="slider"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+            >
+              {slides.map((slide, index) => (
+                <div key={slide.id} className="slide scroll-thin px-4 py-20">
+                  {slide.component}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         <Navigation 
           currentSlide={currentSlide}
