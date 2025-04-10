@@ -1,0 +1,79 @@
+
+import React from 'react';
+import { Mail, Phone, Linkedin, MapPin } from 'lucide-react';
+
+const ContactSlide: React.FC = () => {
+  return (
+    <div className="flex flex-col justify-center items-center h-full">
+      <div className="max-w-3xl px-6 md:px-0">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8">
+          Entre em <span className="text-orange">Contato</span>
+        </h2>
+        
+        <p className="text-lg mb-10">
+          Estou disponível para oportunidades de trabalho, projetos freelance ou apenas para trocar ideias sobre dados e tecnologia.
+          Entre em contato através de uma das opções abaixo:
+        </p>
+        
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-orange/20 flex items-center justify-center">
+                <Mail className="w-6 h-6 text-orange" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium">Email</h3>
+                <a href="mailto:leotxsp@gmail.com" className="text-cream hover:text-orange transition-colors">
+                  leotxsp@gmail.com
+                </a>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-orange/20 flex items-center justify-center">
+                <Phone className="w-6 h-6 text-orange" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium">Telefone</h3>
+                <a href="tel:+5591989106163" className="text-cream hover:text-orange transition-colors">
+                  +55 91 98910-6163
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-orange/20 flex items-center justify-center">
+                <Linkedin className="w-6 h-6 text-orange" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium">LinkedIn</h3>
+                <a 
+                  href="https://www.linkedin.com/in/leonardosimplicio/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-cream hover:text-orange transition-colors"
+                >
+                  linkedin.com/in/leonardosimplicio
+                </a>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-orange/20 flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-orange" />
+              </div>
+              <div>
+                <h3 className="text-lg font-medium">Localização</h3>
+                <p>Belém, Pará, Brasil</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ContactSlide;
