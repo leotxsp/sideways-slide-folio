@@ -8,7 +8,7 @@ const ContactSlide: React.FC = () => {
     <div className="flex flex-col justify-center items-center h-full">
       <div className="max-w-3xl px-6 md:px-0">
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
-          Entre em <span className="text-orange">Contato</span>
+          <span className="text-orange">Contato</span>
         </h2>
         
         <p className="text-lg mb-10">
@@ -35,7 +35,7 @@ const ContactSlide: React.FC = () => {
                 <Phone className="w-6 h-6 text-orange" />
               </div>
               <div>
-                <h3 className="text-lg font-medium">Telefone</h3>
+                <h3 className="text-lg font-medium">Mobile</h3>
                 <a href={`tel:${personalInfo.phone}`} className="text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange">
                   {personalInfo.phone}
                 </a>
@@ -56,7 +56,7 @@ const ContactSlide: React.FC = () => {
                   rel="noopener noreferrer"
                   className="text-cream hover:text-orange transition-colors light-mode:text-dark light-mode:hover:text-orange"
                 >
-                  LinkedIn
+                  leonardosimplicio
                 </a>
               </div>
             </div>
