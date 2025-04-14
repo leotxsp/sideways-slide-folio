@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
 
@@ -104,8 +103,7 @@ export default {
 	plugins: [
 		require("tailwindcss-animate"),
 		plugin(function({ addVariant }) {
-			// Add a `light-mode` variant
-			addVariant('light-mode', '.light-mode &')
+			addVariant('light-mode', ['.light-mode &', '.light-mode&'])
 		})
 	],
 } satisfies Config;
