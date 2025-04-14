@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CheckCircle, Award } from 'lucide-react';
 import { 
@@ -40,35 +39,21 @@ const SkillsSlide: React.FC = () => {
     'Programa Oracle Next Education F2 T5 Back-end',
   ];
 
-  // Credly Badge data
+  // Updated Credly Badge data
   const credlyBadges: Badge[] = [
     {
       id: "1",
-      title: "AWS Certified Cloud Practitioner",
-      imageUrl: "https://images.credly.com/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png",
-      issuer: "Amazon Web Services",
-      url: "https://www.credly.com/badges/sample1"
+      title: "Data Science Foundations Level 1",
+      imageUrl: "https://images.credly.com/size/80x80/images/68c0b94d-f6ac-40b1-a0e0-921439eb092e/image.png",
+      issuer: "IBM",
+      url: "https://www.credly.com/badges/4405a4a5-2d1d-43b3-b812-970d91e75ca3"
     },
     {
       id: "2",
-      title: "Oracle Cloud Infrastructure Foundations 2021 Associate",
-      imageUrl: "https://images.credly.com/images/2784d0d8-327c-406f-971e-9f0e15097003/image.png",
-      issuer: "Oracle",
-      url: "https://www.credly.com/badges/sample2"
-    },
-    {
-      id: "3",
       title: "Python for Data Science",
-      imageUrl: "https://images.credly.com/images/3cd98f34-0f95-4a75-9c26-02aaa0f1d00b/image.png",
+      imageUrl: "https://images.credly.com/size/80x80/images/b1395248-483c-48cd-b40d-7fe93837c37d/image.png",
       issuer: "IBM",
-      url: "https://www.credly.com/badges/sample3"
-    },
-    {
-      id: "4",
-      title: "Data Science Foundations",
-      imageUrl: "https://images.credly.com/images/5ca7b236-6105-4154-ba22-c8ae12ec1d8c/image.png",
-      issuer: "IBM",
-      url: "https://www.credly.com/badges/sample4"
+      url: "https://www.credly.com/earner/earned/badge/8677b043-f02c-4e68-9bb1-95218674831c"
     }
   ];
 
