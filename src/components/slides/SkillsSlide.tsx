@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useEffect, useState } from 'react';
 import { CheckCircle, Award } from 'lucide-react';
 import { 
   Carousel, 
@@ -7,6 +8,8 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from '@/components/ui/carousel';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import type { EmblaCarouselType } from 'embla-carousel-react';
 
 interface Skill {
   name: string;
@@ -39,7 +42,7 @@ const SkillsSlide: React.FC = () => {
     'Programa Oracle Next Education F2 T5 Back-end',
   ];
 
-  // Updated Credly Badge data
+  // Updated Credly Badge data with the new badge
   const credlyBadges: Badge[] = [
     {
       id: "1",
@@ -54,8 +57,38 @@ const SkillsSlide: React.FC = () => {
       imageUrl: "https://images.credly.com/size/80x80/images/b1395248-483c-48cd-b40d-7fe93837c37d/image.png",
       issuer: "IBM",
       url: "https://www.credly.com/earner/earned/badge/8677b043-f02c-4e68-9bb1-95218674831c"
+    },
+    {
+      id: "3",
+      title: "Artificial Intelligence Foundations",
+      imageUrl: "https://images.credly.com/size/80x80/images/b38a42e0-dc58-4ce2-b6c0-28d978e8aaad/image.png",
+      issuer: "IBM",
+      url: "https://www.credly.com/earner/earned/badge/2a077a33-f47d-4142-a2ef-d8aa27fae2c2"
     }
   ];
+  
+  const [api, setApi] = useState<EmblaCarouselType | null>(null);
+  const [autoScrollInterval, setAutoScrollInterval] = useState<number | null>(null);
+  
+  // Set up auto-scrolling
+  useEffect(() => {
+    if (!api) return;
+    
+    // Start auto-scrolling
+    const interval = window.setInterval(() => {
+      if (api.canScrollNext()) {
+        api.scrollNext();
+      } else {
+        api.scrollTo(0); // Loop back to the beginning
+      }
+    }, 3000); // Slow scroll every 3 seconds
+    
+    setAutoScrollInterval(interval);
+    
+    return () => {
+      if (autoScrollInterval) clearInterval(autoScrollInterval);
+    };
+  }, [api]);
 
   return (
     <div className="flex flex-col justify-center items-center h-full">
@@ -96,7 +129,7 @@ const SkillsSlide: React.FC = () => {
               ))}
             </ul>
             
-            {/* Credly Badges Carousel */}
+            {/* Credly Badges Carousel with Auto-scroll */}
             <div className="mt-8">
               <div className="flex items-center gap-2 mb-4">
                 <Award className="w-5 h-5 text-orange" />
@@ -104,6 +137,7 @@ const SkillsSlide: React.FC = () => {
               </div>
               
               <Carousel
+                setApi={setApi}
                 opts={{
                   align: "start",
                   loop: true,
