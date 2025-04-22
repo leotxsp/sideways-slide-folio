@@ -8,19 +8,23 @@ const ThemeToggle: React.FC = () => {
   useEffect(() => {
     // Initialize theme based on localStorage or system preference
     const savedTheme = localStorage.getItem('theme') || 'dark';
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle('light-mode', savedTheme === 'light');
-    document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    document.body.classList.toggle('light-mode', savedTheme === 'light');
+    updateTheme(savedTheme);
   }, []);
   
-  const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+  const updateTheme = (newTheme: string) => {
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
+    
+    // Apply theme classes to html and body
     document.documentElement.classList.toggle('light-mode', newTheme === 'light');
     document.documentElement.classList.toggle('dark', newTheme === 'dark');
     document.body.classList.toggle('light-mode', newTheme === 'light');
+    document.body.classList.toggle('dark', newTheme === 'dark');
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    updateTheme(newTheme);
   };
 
   return (
