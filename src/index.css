@@ -51,6 +51,7 @@
     scroll-behavior: smooth;
   }
 
+  /* Fix for light mode background */
   body.light-mode {
     @apply bg-cream text-dark;
   }

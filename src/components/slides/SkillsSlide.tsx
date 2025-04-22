@@ -9,7 +9,7 @@ import {
   CarouselPrevious 
 } from '@/components/ui/carousel';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import type { EmblaCarouselType } from 'embla-carousel-react';
+import useEmblaCarousel from 'embla-carousel-react';
 
 interface Skill {
   name: string;
@@ -42,7 +42,6 @@ const SkillsSlide: React.FC = () => {
     'Programa Oracle Next Education F2 T5 Back-end',
   ];
 
-  // Updated Credly Badge data with the new badge
   const credlyBadges: Badge[] = [
     {
       id: "1",
@@ -67,7 +66,7 @@ const SkillsSlide: React.FC = () => {
     }
   ];
   
-  const [api, setApi] = useState<EmblaCarouselType | null>(null);
+  const [api, setApi] = useState<ReturnType<typeof useEmblaCarousel>[1]>(null);
   const [autoScrollInterval, setAutoScrollInterval] = useState<number | null>(null);
   
   // Set up auto-scrolling
