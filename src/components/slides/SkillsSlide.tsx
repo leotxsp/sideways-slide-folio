@@ -142,24 +142,45 @@ const SkillsSlide: React.FC = () => {
               ))}
             </ul>
             
-            {/* Credly Badges */}
+            {/* Credly Badges with Carousel */}
             <div className="mt-8">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
                 <Award className="w-5 h-5 text-orange" />
                 <h3 className="text-xl font-semibold">Credly Badges</h3>
               </div>
               
-              <ScrollArea className="h-[320px] w-full rounded-md border border-purple/20 p-4">
-                <div className="flex flex-wrap justify-center gap-4">
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="ffda2e42-6472-4a2e-8f5d-926dc2fcb42a" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7e1a54fa-2cbe-43d3-b144-3f622b2d80dd" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="810083d4-228a-4444-ba4d-957015282dd8" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e89f0716-9f4e-4f1d-a956-ddaee267a5c9" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="2a077a33-f47d-4142-a2ef-d8aa27fae2c2" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8677b043-f02c-4e68-9bb1-95218674831c" data-share-badge-host="https://www.credly.com"></div>
-                  <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4405a4a5-2d1d-43b3-b812-970d91e75ca3" data-share-badge-host="https://www.credly.com"></div>
-                </div>
-              </ScrollArea>
+              <Carousel
+                setApi={setApi}
+                className="w-full max-w-md mx-auto"
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="ffda2e42-6472-4a2e-8f5d-926dc2fcb42a" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7e1a54fa-2cbe-43d3-b144-3f622b2d80dd" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="810083d4-228a-4444-ba4d-957015282dd8" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e89f0716-9f4e-4f1d-a956-ddaee267a5c9" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="2a077a33-f47d-4142-a2ef-d8aa27fae2c2" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8677b043-f02c-4e68-9bb1-95218674831c" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                  <CarouselItem className="basis-1/2 md:basis-1/3">
+                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4405a4a5-2d1d-43b3-b812-970d91e75ca3" data-share-badge-host="https://www.credly.com"></div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
             </div>
           </div>
         </div>
