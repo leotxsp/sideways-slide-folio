@@ -93,17 +93,17 @@ const ProjectsSlide: React.FC = () => {
           ))}
         </div>
 
-        <div className="w-full max-w-3xl mx-auto">
+        <div className="w-full max-w-3xl mx-auto px-4 md:px-0">
           <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
-          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
+          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center overflow-x-auto">
             <iframe 
               src="https://ghchart.rshah.org/fe6807/leotxsp" 
-              width="100%" 
+              width={isMobile ? "600" : "100%"}
               height="100" 
               frameBorder="0"
               title="GitHub Contribution Chart"
               className="rounded"
-            ></iframe>
+            />
           </div>
           <p className="text-center text-sm text-purple mt-2">
             View more on my <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub profile</a>

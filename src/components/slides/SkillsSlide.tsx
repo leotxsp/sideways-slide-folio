@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/carousel';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import useEmblaCarousel from 'embla-carousel-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Skill {
   name: string;
@@ -25,6 +26,7 @@ interface Badge {
 }
 
 const SkillsSlide: React.FC = () => {
+  const isMobile = useIsMobile();
   const technicalSkills: Skill[] = [
     { name: 'Python', level: 90 },
     { name: 'SQL', level: 85 },
@@ -92,14 +94,14 @@ const SkillsSlide: React.FC = () => {
   return (
     <div className="flex flex-col justify-center items-center h-full">
       <div className="max-w-3xl px-6 md:px-0 w-full">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>
         
         <div className="grid md:grid-cols-2 gap-10">
-          <div>
-            <h3 className="text-2xl font-semibold mb-6">Habilidades Técnicas</h3>
-            <div className="space-y-6">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="text-2xl font-semibold mb-6 text-center md:text-left">Habilidades Técnicas</h3>
+            <div className="space-y-6 w-full max-w-xs md:max-w-none">
               {technicalSkills.map((skill) => (
                 <div key={skill.name}>
                   <div className="flex justify-between mb-1">
@@ -117,20 +119,20 @@ const SkillsSlide: React.FC = () => {
             </div>
           </div>
           
-          <div>
-            <h3 className="text-2xl font-semibold mb-6">Certificações</h3>
-            <ul className="space-y-4">
+          <div className="flex flex-col items-center md:items-start">
+            <h3 className="text-2xl font-semibold mb-6 text-center md:text-left">Certificações</h3>
+            <ul className="space-y-4 w-full max-w-xs md:max-w-none">
               {certifications.map((cert, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-orange mt-1" />
+                  <CheckCircle className="w-5 h-5 text-orange mt-1 flex-shrink-0" />
                   <span>{cert}</span>
                 </li>
               ))}
             </ul>
             
             {/* Credly Badges Carousel with Auto-scroll */}
-            <div className="mt-8">
-              <div className="flex items-center gap-2 mb-4">
+            <div className="mt-8 w-full">
+              <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                 <Award className="w-5 h-5 text-orange" />
                 <h3 className="text-xl font-semibold">Credly Badges</h3>
               </div>
@@ -145,7 +147,7 @@ const SkillsSlide: React.FC = () => {
               >
                 <CarouselContent>
                   {credlyBadges.map((badge) => (
-                    <CarouselItem key={badge.id} className="md:basis-1/2 lg:basis-1/3">
+                    <CarouselItem key={badge.id} className="basis-1/2 md:basis-1/3">
                       <a 
                         href={badge.url} 
                         target="_blank" 
@@ -156,7 +158,7 @@ const SkillsSlide: React.FC = () => {
                           <img 
                             src={badge.imageUrl} 
                             alt={badge.title}
-                            className="w-24 h-24 object-contain mb-2" 
+                            className="w-20 h-20 object-contain mb-2" 
                           />
                           <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
                           <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
