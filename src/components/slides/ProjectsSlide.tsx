@@ -11,25 +11,25 @@ const ProjectsSlide: React.FC = () => {
   const projects = [
     {
       title: 'XML Handler',
-      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
+      description: 'Uma ferramenta Python que manipula XMLs de notas fiscais e os exibe em uma tabela PyQt para visualização. Utiliza pandas para manipulação de dados.',
       tags: ['Python', 'PyQt', 'XML', 'Pandas'],
       github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085'
+      image: 'https://github.com/leotxsp/sideways-slide-folio/blob/main/public/XMLHANDLER.png?raw=true'
     },
     {
       title: 'Site de Portfólio',
-      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
+      description: 'meu portfólio online, desenvolvido com Vite, Tailwind CSS e React. Apresenta meus projetos e habilidades de forma interativa.',
       tags: ['Vite', 'Tailwind', 'AI', 'Typescript', 'React', 'javascript'],
       github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
       image: 'https://github.com/leotxsp/sideways-slide-folio/blob/main/public/Portifolio.png?raw=true'
     },
     {
-      title: 'XML Handler',
-      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
-      tags: ['Python', 'PyQt', 'XML', 'Pandas'],
-      github: 'https://github.com/leotxsp/XMLHandler',
+      title: 'Ai Para reconhecimento de som (Deep Audio Classifier)',
+      description: 'Um projeto de IA que reconhece sons e os classifica em categorias específicas. Utiliza aprendizado de máquina para treinar modelos de reconhecimento de som de pássaros.',
+      tags: ['Python', 'Matplotlib', 'Tensorflow', 'Pandas','colabs'],
+      github: 'https://github.com/leotxsp/Ai-Para-reconhecimento-de-som-Deep-Audio-Classifier-',
       live: '',
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b'
     },
