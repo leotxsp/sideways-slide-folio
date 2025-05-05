@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/carousel';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import useEmblaCarousel from 'embla-carousel-react';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface Skill {
   name: string;
@@ -26,7 +25,6 @@ interface Badge {
 }
 
 const SkillsSlide: React.FC = () => {
-  const isMobile = useIsMobile();
   const technicalSkills: Skill[] = [
     { name: 'Python', level: 90 },
     { name: 'SQL', level: 85 },
@@ -91,27 +89,15 @@ const SkillsSlide: React.FC = () => {
     };
   }, [api]);
 
-  useEffect(() => {
-    // Load Credly embed script
-    const script = document.createElement('script');
-    script.src = "//cdn.credly.com/assets/utilities/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <div className="flex flex-col justify-center items-center h-full">
       <div className="max-w-3xl px-6 md:px-0 w-full">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>
         
         <div className="grid md:grid-cols-2 gap-10">
-          <div className="text-center md:text-left">
+          <div>
             <h3 className="text-2xl font-semibold mb-6">Habilidades Técnicas</h3>
             <div className="space-y-6">
               {technicalSkills.map((skill) => (
@@ -131,9 +117,9 @@ const SkillsSlide: React.FC = () => {
             </div>
           </div>
           
-          <div className="text-center md:text-left">
+          <div>
             <h3 className="text-2xl font-semibold mb-6">Certificações</h3>
-            <ul className="space-y-4 inline-block text-left">
+            <ul className="space-y-4">
               {certifications.map((cert, index) => (
                 <li key={index} className="flex items-start gap-3">
                   <CheckCircle className="w-5 h-5 text-orange mt-1" />
@@ -142,65 +128,50 @@ const SkillsSlide: React.FC = () => {
               ))}
             </ul>
             
-            {/* Credly Badges with Carousel */}
+            {/* Credly Badges Carousel with Auto-scroll */}
             <div className="mt-8">
-              <div className="flex items-center justify-center md:justify-start gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-4">
                 <Award className="w-5 h-5 text-orange" />
                 <h3 className="text-xl font-semibold">Credly Badges</h3>
               </div>
               
               <Carousel
                 setApi={setApi}
-                className="w-full max-w-md mx-auto"
                 opts={{
                   align: "start",
                   loop: true,
                 }}
+                className="w-full"
               >
                 <CarouselContent>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="ffda2e42-6472-4a2e-8f5d-926dc2fcb42a" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7e1a54fa-2cbe-43d3-b144-3f622b2d80dd" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="810083d4-228a-4444-ba4d-957015282dd8" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="e89f0716-9f4e-4f1d-a956-ddaee267a5c9" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="2a077a33-f47d-4142-a2ef-d8aa27fae2c2" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8677b043-f02c-4e68-9bb1-95218674831c" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
-                  <CarouselItem className="basis-1/2 md:basis-1/3">
-                    <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4405a4a5-2d1d-43b3-b812-970d91e75ca3" data-share-badge-host="https://www.credly.com"></div>
-                  </CarouselItem>
+                  {credlyBadges.map((badge) => (
+                    <CarouselItem key={badge.id} className="md:basis-1/2 lg:basis-1/3">
+                      <a 
+                        href={badge.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="block"
+                      >
+                        <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
+                          <img 
+                            src={badge.imageUrl} 
+                            alt={badge.title}
+                            className="w-24 h-24 object-contain mb-2" 
+                          />
+                          <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
+                          <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
+                        </div>
+                      </a>
+                    </CarouselItem>
+                  ))}
                 </CarouselContent>
+                <div className="flex justify-center mt-4 gap-2">
+                  <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
+                  <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
+                </div>
               </Carousel>
             </div>
           </div>
-        </div>
-        
-        {/* GitHub Contributions - visible on both mobile and desktop */}
-        <div className="w-full max-w-3xl mx-auto mt-8">
-          <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
-          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
-            <iframe 
-              src="https://ghchart.rshah.org/fe6807/leotxsp" 
-              width="100%" 
-              height="100" 
-              frameBorder="0"
-              title="GitHub Contribution Chart"
-              className="rounded"
-            ></iframe>
-          </div>
-          <p className="text-center text-sm text-purple mt-2">
-            View more on my <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub profile</a>
-          </p>
         </div>
       </div>
     </div>
