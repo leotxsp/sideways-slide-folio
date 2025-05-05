@@ -28,13 +28,13 @@ interface Badge {
 const SkillsSlide: React.FC = () => {
   const isMobile = useIsMobile();
   const technicalSkills: Skill[] = [
-    { name: 'Python', level: 90 },
-    { name: 'SQL', level: 85 },
-    { name: 'AWS', level: 75 },
-    { name: 'ETL', level: 80 },
-    { name: 'Data Science', level: 70 },
-    { name: 'PyQt', level: 65 },
-    { name: 'WAMP', level: 60 },
+    { name: 'Python', level: 50 },
+    { name: 'SQL', level: 10 },
+    { name: 'AWS', level: 20 },
+    { name: 'ETL', level: 1 },
+    { name: 'Data Science', level: 1 },
+    { name: 'PyQt', level: 5 },
+    { name: 'WAMP', level: 1 },
   ];
 
   const certifications = [
