@@ -8,7 +8,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const ProjectsSlide: React.FC = () => {
   const isMobile = useIsMobile();
 
-  // Updated projects data with the GitHub project
+  // Projects data with the XML Handler project
   const projects = [
     {
       title: 'XML Handler',
@@ -43,7 +43,7 @@ const ProjectsSlide: React.FC = () => {
           <span className="text-orange">Projects</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {projects.map((project, index) => (
             <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all">
               <div className="w-full h-48 overflow-hidden rounded-t-lg">
@@ -93,6 +93,7 @@ const ProjectsSlide: React.FC = () => {
           ))}
         </div>
 
+        {/* GitHub Contributions - visible on both mobile and desktop */}
         <div className="w-full max-w-3xl mx-auto">
           <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
           <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
