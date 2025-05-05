@@ -1,5 +1,5 @@
+
 import React, { useState, useEffect, useRef } from 'react';
-import ThemeToggle from '@/components/ThemeToggle';
 import SocialLinks from '@/components/SocialLinks';
 import Navigation from '@/components/Navigation';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -10,6 +10,7 @@ import AboutSlide from '@/components/slides/AboutSlide';
 import SkillsSlide from '@/components/slides/SkillsSlide';
 import ProjectsSlide from '@/components/slides/ProjectsSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
+import WorkingOnSlide from '@/components/slides/WorkingOnSlide';
 
 const Index = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -22,6 +23,7 @@ const Index = () => {
     { id: 'about', component: <AboutSlide /> },
     { id: 'skills', component: <SkillsSlide /> },
     { id: 'projects', component: <ProjectsSlide /> },
+    { id: 'working-on', component: <WorkingOnSlide /> },
     { id: 'contact', component: <ContactSlide /> }
   ];
 
@@ -126,7 +128,6 @@ const Index = () => {
   return (
     <>
       <div className="min-h-screen bg-dark">
-        <ThemeToggle />
         <SocialLinks />
         
         {isMobile ? (

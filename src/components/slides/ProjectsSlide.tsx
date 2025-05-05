@@ -8,30 +8,30 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const ProjectsSlide: React.FC = () => {
   const isMobile = useIsMobile();
 
-  // Sample projects data with image URLs
+  // Updated projects data with the GitHub project
   const projects = [
     {
-      title: 'Data Analysis Dashboard',
-      description: 'Interactive dashboard for visualizing complex datasets using Python and React',
-      tags: ['Python', 'React', 'Data Visualization'],
-      github: 'https://github.com/leotxsp/data-dashboard',
-      live: 'https://data-dashboard-demo.com',
+      title: 'XML Handler',
+      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
+      tags: ['Python', 'PyQt', 'XML', 'Pandas'],
+      github: 'https://github.com/leotxsp/XMLHandler',
+      live: '',
       image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085'
     },
     {
-      title: 'ETL Pipeline Framework',
-      description: 'Robust ETL pipeline for processing large datasets with AWS integration',
-      tags: ['Python', 'AWS', 'ETL'],
-      github: 'https://github.com/leotxsp/etl-framework',
+      title: 'XML Handler',
+      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
+      tags: ['Python', 'PyQt', 'XML', 'Pandas'],
+      github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
       image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
     },
     {
-      title: 'SQL Query Optimizer',
-      description: 'Tool for analyzing and optimizing SQL queries for better performance',
-      tags: ['SQL', 'Python', 'Database'],
-      github: 'https://github.com/leotxsp/sql-optimizer',
-      live: 'https://sql-optimizer.demo.com',
+      title: 'XML Handler',
+      description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
+      tags: ['Python', 'PyQt', 'XML', 'Pandas'],
+      github: 'https://github.com/leotxsp/XMLHandler',
+      live: '',
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b'
     },
   ];
@@ -45,7 +45,7 @@ const ProjectsSlide: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {projects.map((project, index) => (
-            <Card key={index} className="bg-dark/50 light-mode:bg-purple/10 border-purple/30 hover:border-orange/50 transition-all">
+            <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all">
               <div className="w-full h-48 overflow-hidden rounded-t-lg">
                 <img 
                   src={project.image} 
@@ -54,7 +54,7 @@ const ProjectsSlide: React.FC = () => {
                 />
               </div>
               <CardHeader>
-                <CardTitle className="text-cream light-mode:text-dark">{project.title}</CardTitle>
+                <CardTitle className="text-cream">{project.title}</CardTitle>
                 <CardDescription className="text-purple">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
@@ -67,7 +67,7 @@ const ProjectsSlide: React.FC = () => {
               <CardFooter className="flex justify-between">
                 <Button 
                   variant="ghost" 
-                  className="text-cream light-mode:text-dark hover:text-orange hover:bg-purple/20"
+                  className="text-cream hover:text-orange hover:bg-purple/20"
                   asChild
                 >
                   <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -79,7 +79,7 @@ const ProjectsSlide: React.FC = () => {
                 {project.live && (
                   <Button 
                     variant="ghost" 
-                    className="text-cream light-mode:text-dark hover:text-orange hover:bg-purple/20"
+                    className="text-cream hover:text-orange hover:bg-purple/20"
                     asChild
                   >
                     <a href={project.live} target="_blank" rel="noopener noreferrer">
@@ -95,7 +95,7 @@ const ProjectsSlide: React.FC = () => {
 
         <div className="w-full max-w-3xl mx-auto">
           <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
-          <div className="bg-dark/50 light-mode:bg-purple/10 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
+          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
             <iframe 
               src="https://ghchart.rshah.org/fe6807/leotxsp" 
               width="100%" 
