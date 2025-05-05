@@ -45,7 +45,7 @@ const SkillsSlide: React.FC = () => {
   ];
 
   const credlyBadges: Badge[] = [
-   /*
+
     {
       id: "1",
       title: "Python Essentials 1",
@@ -67,7 +67,6 @@ const SkillsSlide: React.FC = () => {
       issuer: "Cisco",
       url: "https://www.credly.com/badges/2a077a33-f47d-4142-a2ef-d8aa27fae2c2/public_url"
     },
-    */
     {
       id: "5",
       title: "AWS re/Start Graduate",
@@ -122,8 +121,8 @@ const SkillsSlide: React.FC = () => {
   }, [api]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
-      <div className="max-w-3xl px-6 md:px-0 w-full">
+    <div className="flex -col justify-center items-center h-full">
+      <div className="max-w-3xl px-6 md:px-0 w-auto">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>

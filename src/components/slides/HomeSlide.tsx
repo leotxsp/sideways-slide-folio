@@ -14,7 +14,8 @@ const HomeSlide: React.FC = () => {
         </h2>
         <p className="text-lg md:text-xl mb-10 leading-relaxed">
           {personalInfo.shortBio}
-          Baseado em <span className="text-orange">{personalInfo.location}</span>.
+          <br/>
+          <br/><span className="text-orange">{personalInfo.location}</span>
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           {personalInfo.skills.map((skill, index) => (

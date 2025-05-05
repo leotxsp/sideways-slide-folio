@@ -20,10 +20,10 @@ const ProjectsSlide: React.FC = () => {
     {
       title: 'Site de Portfólio',
       description: 'A Python tool that handles XMLs from notas fiscais and displays them in a PyQt table for visualization. Uses pandas for data manipulation.',
-      tags: ['Python', 'PyQt', 'XML', 'Pandas'],
+      tags: ['Vite', 'Tailwind', 'AI', 'Typescript', 'React', 'javascript'],
       github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
-      image: 'https://lh3.googleusercontent.com/fife/ALs6j_GyqBR1MV_9gDPX7LJLhBACH8C5eK5Cs6hFT8UDWAlSbg2EnogNT5sOplYak8xTssPxAh_1hKj5-xq2RO7pRONKCerjwcDSVG5uRG1sC6oqoo7WWJSFw1w2YrwqnHxOEDCeW4Wyzo7idtD_xho1cRlj7yQZ27euID83Zb35eVV9AMjb8QQE9sj2L9ois_yacNmSaWjXQJGkPwMzBnfX2gJgr_5F4pxFFcrdHe2-vtb6yBgeTCf74zdArWEJ-ZnjyZpmbCJVn2lSM3YOLhvEU-Pwd9lfttqwPdGBbpV1a3gNEp9Tbhzuqvw87Wvkw5ELUt3WiJZR49gkXGMzBl7Nyty1Q9MBPOCfQFI0rvMIfKDE9wgoS01ssvJ2Z4kgFUa80rYv_BctCI7Rk21xgIVg46W5l_OFmGMNvX4w-io3b6TTXHV9lN6ZAsVTx1C-IasYITmufGNvxkJg9gtoQTT_Z-aAWRE6uJlmmXvKJb28aTMWeAtDEZNbh0haosLLognNRPm6bvG5_ojhV4R38PDE1ktft90oT6E0Yo6wamaZWFfXpL63FnDvxn2xxjGVIYBvROLnVwaYAwFyz5n1sHjcGZIllLcd7vU3b23_7hkPBUnb-frv90Y4bhXdAMHWZS4ULrmrlEYTl2sVWY4wnFKq80zx0WuLiUCfEqH4t-ikOs78WX3TqUhZmitOla3L4LZnU-QKQDjAdgbZ6GfxztVK2yuf0aC8AqnOy6lBtYUZhmN4XkmK_8m28doaTXOHva4njirbg7PAxg3gGHYwX4A9eOCu4WEy0sOfrMGgAURonxIlYcTJK8963kMVkbS7XLhyyEPhsZwjPKZNA9XvNdlgzCbp55bU2ycRDm--scqkukTSmTeABiUutpOeir5uTHEyw2YfPkgbI76f7EkgzHU67vrHF0IRXZ7Cei5SeTTtNswJgKvLz5fFr4EZ9tzPpcC6ucd8toQaZFY4lyniohHl5zXtvgex5NUIi24r_CRZjz7dWQa08yBRWyZDKhEUwyCIgR10TNgaejBFHOllpxuVYGn8PknUrvzRGY0D8dMQUzg4QhLLUDMn8rqO0AvsItuW5Yh2RZn-NNzywYEmkFXWuLDGXV3Pt2hf0kkGhG35tPQdEyu-0N1ejNi8ab79yWaqi0vkH5lCUVMxlqBJ6ECyGiJ7_SRJrQWqdVKWvn7qMOafabxmzCPpS5ZE9x5kIVHol14qIL6PF3JyKCk8V0k6O9ZlPpdhBDaGDJ-QcQcs-7MbZfOrUPEQ2hrksG1dig7v-BeOGoIql-pwhBAWxz6I1Y1bAx4KdTywdJSZvEE-HvDeap76_2kyYU74j0XV_92fWDgdkuSt32YEPlAvYon0Ez6enXHdfccD90rCnyyEmbzIu4sFo0famIBSYI2AKe7kabk9IaOFILt83Rr93pJ5CQN5t4KIDQvhfVrqwYhX7IeD6ho0UYVs2LE1sJDNqrojsZlVFCC6gi9BWkbdKru9kly8tUdj_hEQb0cL0WPJPvH-zfw7DMgd2Va4h6b9h_YRSVXzzxj6wjrccLHHZVwpLT0XI1fvPt1BmibRyo21-zMPTjTwxeWECfYWMBucwOudlXfnIUkiVF18ZqYD0IXRCd1lgjpbWk3dbjzTw6nzb60krpZH8o6AX88TlDh_AUGfBg3V3AJDzrFc2I8GfgjLddkaEUmG2Rsj=w1920-h959?auditContext=prefetch'
+      image: 'https://github.com/leotxsp/sideways-slide-folio/blob/main/public/Portifolio.png?raw=true'
     },
     {
       title: 'XML Handler',
@@ -42,10 +42,10 @@ const ProjectsSlide: React.FC = () => {
           <span className="text-orange">Projetos</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-16" >
           {projects.map((project, index) => (
-            <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all">
-              <div className="w-full h-40 overflow-hidden rounded-t-lg">
+            <Card key={index}  className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all max-w-sm mx-auto">
+              <div className="w-full h-30 overflow-hidden rounded-t-lg">
                 <img 
                   src={project.image} 
                   alt={project.title}
@@ -57,7 +57,7 @@ const ProjectsSlide: React.FC = () => {
                 <CardDescription className="text-purple">{project.description}</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-2 mb-5">
                   {project.tags.map((tag, idx) => (
                     <span key={idx} className="skill-tag">{tag}</span>
                   ))}
@@ -93,7 +93,7 @@ const ProjectsSlide: React.FC = () => {
         </div>
 
         <div className="w-full max-w-3xl mx-auto">
-          <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub Contributions</h3>
+          <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub</h3>
           <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
             <iframe 
               src="https://ghchart.rshah.org/fe6807/leotxsp" 
@@ -105,7 +105,7 @@ const ProjectsSlide: React.FC = () => {
             ></iframe>
           </div>
           <p className="text-center text-sm text-purple mt-2">
-            View more on my <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub profile</a>
+            Veja mais no meu <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub</a>
           </p>
         </div>
       </div>
