@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Github, ExternalLink } from 'lucide-react';
@@ -36,15 +37,15 @@ const ProjectsSlide: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col justify-center items-center h-full">
-      <div className="max-w-5xl px-6 md:px-0">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center ">
+    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 px-4 md:px-6">
+      <div className="max-w-5xl w-full">
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           <span className="text-orange">Projetos</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-16" >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
           {projects.map((project, index) => (
-            <Card key={index}  className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all max-w-sm mx-auto">
+            <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all mx-auto w-full">
               <div className="w-full h-30 overflow-hidden rounded-t-lg">
                 <img 
                   src={project.image} 

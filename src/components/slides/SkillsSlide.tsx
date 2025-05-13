@@ -106,8 +106,8 @@ const SkillsSlide: React.FC = () => {
   }, [api, autoScrollInterval]);
 
   return (
-    <div className="flex flex-col justify-center items-center h-full py-16 md:py-0">
-      <div className="max-w-3xl px-4 md:px-0 w-full animate-fade-in">
+    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 px-4 md:px-6">
+      <div className="max-w-3xl w-full animate-fade-in">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>

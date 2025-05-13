@@ -131,9 +131,9 @@ const Index = () => {
         <SocialLinks />
         
         {isMobile ? (
-          <div className="mobile-container pb-20">
+          <div className="mobile-container pb-20 pt-16">
             {slides.map((slide, index) => (
-              <div key={slide.id} className="w-full min-h-screen py-20 px-4 animate-slide-in-mobile" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div key={slide.id} className="w-full min-h-screen py-16 px-4 animate-slide-in-mobile" style={{ animationDelay: `${index * 0.1}s` }}>
                 {slide.component}
               </div>
             ))}
@@ -146,7 +146,7 @@ const Index = () => {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {slides.map((slide, index) => (
-                <div key={slide.id} className="slide scroll-thin px-4 py-24">
+                <div key={slide.id} className="slide scroll-thin py-24">
                   {slide.component}
                 </div>
               ))}
