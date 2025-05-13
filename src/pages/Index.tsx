@@ -146,7 +146,7 @@ const Index = () => {
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}
             >
               {slides.map((slide, index) => (
-                <div key={slide.id} className="slide scroll-thin px-4 py-20">
+                <div key={slide.id} className="slide scroll-thin px-4 py-24">
                   {slide.component}
                 </div>
               ))}

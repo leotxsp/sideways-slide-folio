@@ -1,6 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
-import { CheckCircle, Award, Blocks } from 'lucide-react';
+import { CheckCircle, Award } from 'lucide-react';
 import { 
   Carousel, 
   CarouselContent, 
@@ -8,16 +7,9 @@ import {
   CarouselNext, 
   CarouselPrevious 
 } from '@/components/ui/carousel';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { personalInfo } from '@/data/personalInfo';
-
-interface Skill {
-  name: string;
-  level: number;
-  color?: string;
-}
 
 interface Badge {
   id: string;
@@ -30,17 +22,6 @@ interface Badge {
 const SkillsSlide: React.FC = () => {
   const isMobile = useIsMobile();
   
-  // Define skills with levels and colors
-  const technicalSkills: Skill[] = [
-    { name: 'Python', level: 5, color: '#3776AB' }, // Blue for Python
-    { name: 'SQL', level: 3, color: '#F29111' },    // Orange for SQL
-    { name: 'AWS', level: 4, color: '#FF9900' },    // AWS Orange
-    { name: 'ETL', level: 2, color: '#6E59A5' },    // Purple for ETL
-    { name: 'Data Science', level: 2, color: '#41A4C5' }, // Blue for Data Science
-    { name: 'PyQt', level: 3, color: '#41CD52' },   // Green for PyQt
-    { name: 'WAMP', level: 2, color: '#F70000' },   // Red for WAMP
-  ];
-
   const certifications = [
     'AWS re/Start Graduate',
     'Curso de Java',
@@ -123,23 +104,8 @@ const SkillsSlide: React.FC = () => {
     };
   }, [api, autoScrollInterval]);
 
-  // Helper function to render skill blocks
-  const renderSkillBlocks = (level: number, maxLevel: number = 5, color: string = '#fe6807') => {
-    return (
-      <div className="flex gap-1">
-        {Array.from({ length: maxLevel }).map((_, i) => (
-          <div 
-            key={i}
-            className={`w-5 h-5 rounded ${i < level ? '' : 'opacity-30'}`}
-            style={{ backgroundColor: i < level ? color : '#333333' }}
-          />
-        ))}
-      </div>
-    );
-  };
-
   return (
-    <div className="flex flex-col justify-center items-center h-full">
+    <div className="flex flex-col justify-center items-center h-full py-16 md:py-0">
       <div className="max-w-3xl px-6 md:px-0 w-auto">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
@@ -147,20 +113,17 @@ const SkillsSlide: React.FC = () => {
         
         <div className="grid md:grid-cols-2 gap-10">
           <div className="flex flex-col items-center">
-            <div className="flex items-center gap-2 mb-6">
-              <Blocks className="w-5 h-5 text-orange" />
-              <h3 className="text-2xl font-semibold">Habilidades Técnicas</h3>
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
             </div>
-            <div className="space-y-6 w-full max-w-xs">
-              {technicalSkills.map((skill) => (
-                <div key={skill.name} className="bg-purple/10 p-3 rounded-lg border border-purple/20">
-                  <div className="flex justify-between mb-2">
-                    <span className="font-medium">{skill.name}</span>
-                  </div>
-                  <div className="flex justify-center">
-                    {renderSkillBlocks(skill.level, 5, skill.color)}
-                  </div>
-                </div>
+            <div className="flex flex-wrap justify-center gap-3 max-w-xs">
+              {personalInfo.skills.map((skill) => (
+                <span 
+                  key={skill} 
+                  className="skill-tag hover:bg-orange/30 hover:border-orange/40 transition-colors"
+                >
+                  {skill}
+                </span>
               ))}
             </div>
           </div>
