@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, Award } from 'lucide-react';
 import { 
@@ -106,21 +107,22 @@ const SkillsSlide: React.FC = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-full py-16 md:py-0">
-      <div className="max-w-3xl px-6 md:px-0 w-auto">
+      <div className="max-w-3xl px-4 md:px-0 w-full animate-fade-in">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>
         
-        <div className="grid md:grid-cols-2 gap-10">
-          <div className="flex flex-col items-center">
-            <div className="mb-6">
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="flex flex-col items-center w-full">
+            <div className="mb-4">
               <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
             </div>
-            <div className="flex flex-wrap justify-center gap-3 max-w-xs">
-              {personalInfo.skills.map((skill) => (
+            <div className="flex flex-wrap justify-center gap-3 w-full">
+              {personalInfo.skills.map((skill, index) => (
                 <span 
                   key={skill} 
-                  className="skill-tag hover:bg-orange/30 hover:border-orange/40 transition-colors"
+                  className="skill-tag animate-fade-in hover:bg-orange/30 hover:border-orange/40 transition-colors"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {skill}
                 </span>
@@ -128,11 +130,11 @@ const SkillsSlide: React.FC = () => {
             </div>
           </div>
           
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-2xl font-semibold mb-6 text-center md:text-left">Certificações</h3>
-            <ul className="space-y-4 w-full max-w-xs md:max-w-none">
+          <div className="flex flex-col items-center md:items-start w-full">
+            <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">Certificações</h3>
+            <ul className="space-y-3 w-full max-w-xs md:max-w-none">
               {certifications.map((cert, index) => (
-                <li key={index} className="flex items-start gap-3">
+                <li key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <CheckCircle className="w-5 h-5 text-orange mt-1 flex-shrink-0" />
                   <span>{cert}</span>
                 </li>
@@ -140,7 +142,7 @@ const SkillsSlide: React.FC = () => {
             </ul>
             
             {/* Credly Badges Carousel with Auto-scroll */}
-            <div className="mt-8 w-full">
+            <div className="mt-6 w-full">
               <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                 <Award className="w-5 h-5 text-orange" />
                 <h3 className="text-xl font-semibold">Credly Badges</h3>
@@ -155,19 +157,23 @@ const SkillsSlide: React.FC = () => {
                 className="w-full"
               >
                 <CarouselContent>
-                  {credlyBadges.map((badge) => (
-                    <CarouselItem key={badge.id} className="flex justify-center basis-1/2 md:basis-1/3">
+                  {credlyBadges.map((badge, index) => (
+                    <CarouselItem 
+                      key={badge.id} 
+                      className="flex justify-center basis-1/2 md:basis-1/3 animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
                       <a 
                         href={badge.url} 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        className="block"
+                        className="block w-full"
                       >
                         <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
                           <img 
                             src={badge.imageUrl} 
                             alt={badge.title}
-                            className="w-20 h-20 object-contain mb-2" 
+                            className="w-16 h-16 md:w-20 md:h-20 object-contain mb-2" 
                           />
                           <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
                           <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
