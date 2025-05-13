@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { CheckCircle, Award } from 'lucide-react';
+import { CheckCircle, Award, Blocks } from 'lucide-react';
 import { 
   Carousel, 
   CarouselContent, 
@@ -11,10 +11,12 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { personalInfo } from '@/data/personalInfo';
 
 interface Skill {
   name: string;
   level: number;
+  color?: string;
 }
 
 interface Badge {
@@ -27,14 +29,16 @@ interface Badge {
 
 const SkillsSlide: React.FC = () => {
   const isMobile = useIsMobile();
+  
+  // Define skills with levels and colors
   const technicalSkills: Skill[] = [
-    { name: 'Python', level: 50 },
-    { name: 'SQL', level: 10 },
-    { name: 'AWS', level: 20 },
-    { name: 'ETL', level: 1 },
-    { name: 'Data Science', level: 1 },
-    { name: 'PyQt', level: 5 },
-    { name: 'WAMP', level: 1 },
+    { name: 'Python', level: 5, color: '#3776AB' }, // Blue for Python
+    { name: 'SQL', level: 3, color: '#F29111' },    // Orange for SQL
+    { name: 'AWS', level: 4, color: '#FF9900' },    // AWS Orange
+    { name: 'ETL', level: 2, color: '#6E59A5' },    // Purple for ETL
+    { name: 'Data Science', level: 2, color: '#41A4C5' }, // Blue for Data Science
+    { name: 'PyQt', level: 3, color: '#41CD52' },   // Green for PyQt
+    { name: 'WAMP', level: 2, color: '#F70000' },   // Red for WAMP
   ];
 
   const certifications = [
@@ -45,7 +49,6 @@ const SkillsSlide: React.FC = () => {
   ];
 
   const credlyBadges: Badge[] = [
-
     {
       id: "1",
       title: "Python Essentials 1",
@@ -109,39 +112,53 @@ const SkillsSlide: React.FC = () => {
       if (api.canScrollNext()) {
         api.scrollNext();
       } else {
-        api.scrollTo(NaN); // Loop back to the beginning
+        api.scrollTo(0); // Loop back to the beginning
       }
-    }, 4000); // Slow scroll every 3 seconds
+    }, 4000); // Scroll every 4 seconds
     
     setAutoScrollInterval(interval);
     
     return () => {
       if (autoScrollInterval) clearInterval(autoScrollInterval);
     };
-  }, [api]);
+  }, [api, autoScrollInterval]);
+
+  // Helper function to render skill blocks
+  const renderSkillBlocks = (level: number, maxLevel: number = 5, color: string = '#fe6807') => {
+    return (
+      <div className="flex gap-1">
+        {Array.from({ length: maxLevel }).map((_, i) => (
+          <div 
+            key={i}
+            className={`w-5 h-5 rounded ${i < level ? '' : 'opacity-30'}`}
+            style={{ backgroundColor: i < level ? color : '#333333' }}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div className="flex -col justify-center items-center h-full">
+    <div className="flex flex-col justify-center items-center h-full">
       <div className="max-w-3xl px-6 md:px-0 w-auto">
         <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
           Habilidades & <span className="text-orange">Certificações</span>
         </h2>
         
         <div className="grid md:grid-cols-2 gap-10">
-          <div className="flex flex-col items-center md:items-start">
-            <h3 className="text-2xl font-semibold mb-6 text-center md:text-left">Habilidades Técnicas</h3>
-            <div className="space-y-6 w-full max-w-xs md:max-w-none">
+          <div className="flex flex-col items-center">
+            <div className="flex items-center gap-2 mb-6">
+              <Blocks className="w-5 h-5 text-orange" />
+              <h3 className="text-2xl font-semibold">Habilidades Técnicas</h3>
+            </div>
+            <div className="space-y-6 w-full max-w-xs">
               {technicalSkills.map((skill) => (
-                <div key={skill.name}>
-                  <div className="flex justify-between mb-1">
-                    <span>{skill.name}</span>
-                    <span className="text-orange">{skill.level}%</span>
+                <div key={skill.name} className="bg-purple/10 p-3 rounded-lg border border-purple/20">
+                  <div className="flex justify-between mb-2">
+                    <span className="font-medium">{skill.name}</span>
                   </div>
-                  <div className="h-2 bg-purple/20 rounded-full overflow-hidden">
-                    <div 
-                      className="h-full bg-orange rounded-full"
-                      style={{ width: `${skill.level}%` }}
-                    />
+                  <div className="flex justify-center">
+                    {renderSkillBlocks(skill.level, 5, skill.color)}
                   </div>
                 </div>
               ))}
@@ -160,7 +177,7 @@ const SkillsSlide: React.FC = () => {
             </ul>
             
             {/* Credly Badges Carousel with Auto-scroll */}
-            <div className="mt-8 w-a">
+            <div className="mt-8 w-full">
               <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
                 <Award className="w-5 h-5 text-orange" />
                 <h3 className="text-xl font-semibold">Credly Badges</h3>
@@ -176,8 +193,7 @@ const SkillsSlide: React.FC = () => {
               >
                 <CarouselContent>
                   {credlyBadges.map((badge) => (
-                    /* manipulação do slide */
-                    <CarouselItem key={badge.id} className="flex justify-center basis-full sm:basis-1/2 md:basis-1/3">
+                    <CarouselItem key={badge.id} className="flex justify-center basis-1/2 md:basis-1/3">
                       <a 
                         href={badge.url} 
                         target="_blank" 
