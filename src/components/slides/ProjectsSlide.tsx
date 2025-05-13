@@ -8,7 +8,7 @@ import { useIsMobile } from '@/hooks/use-mobile';
 const ProjectsSlide: React.FC = () => {
   const isMobile = useIsMobile();
 
-  // Updated projects data with the GitHub project
+  // Updated projects data
   const projects = [
     {
       title: 'XML Handler',
@@ -43,72 +43,104 @@ const ProjectsSlide: React.FC = () => {
           <span className="text-orange">Projetos</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
-          {projects.map((project, index) => (
-            <Card key={index} className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all mx-auto w-full">
-              <div className="w-full h-30 overflow-hidden rounded-t-lg">
-                <img 
-                  src={project.image} 
-                  alt={project.title}
-                  className="w-full h-50 object-cover object-center"
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="text-cream">{project.title}</CardTitle>
-                <CardDescription className="text-purple">{project.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {project.tags.map((tag, idx) => (
-                    <span key={idx} className="skill-tag">{tag}</span>
-                  ))}
+        {isMobile ? (
+          // Mobile view - single column with better spacing and animations
+          <div className="space-y-6">
+            {projects.map((project, index) => (
+              <Card 
+                key={index} 
+                className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all w-full animate-fade-in"
+                style={{ animationDelay: `${index * 0.15}s` }}
+              >
+                <div className="w-full h-40 overflow-hidden">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover object-center"
+                  />
                 </div>
-              </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button 
-                  variant="ghost" 
-                  className="text-cream hover:text-orange hover:bg-purple/20"
-                  asChild
-                >
-                  <a href={project.github} target="_blank" rel="noopener noreferrer">
-                    <Github className="w-4 h-4 mr-2" />
-                    Code
-                  </a>
-                </Button>
-                
-                {project.live && (
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-cream text-xl">{project.title}</CardTitle>
+                </CardHeader>
+                <CardContent className="pb-2">
+                  <CardDescription className="text-purple mb-3 line-clamp-3">{project.description}</CardDescription>
+                  <div className="flex flex-wrap gap-1.5">
+                    {project.tags.map((tag, idx) => (
+                      <span key={idx} className="skill-tag text-xs py-1 px-2">{tag}</span>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="pt-2">
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    className="text-cream hover:text-orange hover:bg-purple/20 w-full flex justify-center items-center"
+                    asChild
+                  >
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="w-4 h-4 mr-2" />
+                      Ver Código
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        ) : (
+          // Desktop view - grid layout
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {projects.map((project, index) => (
+              <Card 
+                key={index} 
+                className="bg-dark/50 border-purple/30 hover:border-orange/50 transition-all h-full flex flex-col"
+              >
+                <div className="w-full h-40 overflow-hidden rounded-t-lg">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover object-center"
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle className="text-cream">{project.title}</CardTitle>
+                  <CardDescription className="text-purple">{project.description}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {project.tags.map((tag, idx) => (
+                      <span key={idx} className="skill-tag">{tag}</span>
+                    ))}
+                  </div>
+                </CardContent>
+                <CardFooter className="flex justify-between">
                   <Button 
                     variant="ghost" 
                     className="text-cream hover:text-orange hover:bg-purple/20"
                     asChild
                   >
-                    <a href={project.live} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live
+                    <a href={project.github} target="_blank" rel="noopener noreferrer">
+                      <Github className="w-4 h-4 mr-2" />
+                      Code
                     </a>
                   </Button>
-                )}
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-
-        <div className="w-full max-w-3xl mx-auto">
-          <h3 className="text-xl font-semibold mb-4 text-center text-orange">GitHub</h3>
-          <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center">
-            <iframe 
-              src="https://ghchart.rshah.org/fe6807/leotxsp" 
-              width="100%" 
-              height="100" 
-              frameBorder="0"
-              title="GitHub Contribution Chart"
-              className="rounded"
-            ></iframe>
+                  
+                  {project.live && (
+                    <Button 
+                      variant="ghost" 
+                      className="text-cream hover:text-orange hover:bg-purple/20"
+                      asChild
+                    >
+                      <a href={project.live} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live
+                      </a>
+                    </Button>
+                  )}
+                </CardFooter>
+              </Card>
+            ))}
           </div>
-          <p className="text-center text-sm text-purple mt-2">
-            Veja mais no meu <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub</a>
-          </p>
-        </div>
+        )}
       </div>
     </div>
   );
