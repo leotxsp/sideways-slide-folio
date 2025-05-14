@@ -37,6 +37,8 @@ const StarBackground: React.FC = () => {
     const renderMesh = false;
     const flicker = true;
     const flickerSmoothing = 15;
+    // Add the missing blurSize variable
+    const blurSize = 0;
     const randomMotion = true;
     const noiseLength = 1000;
     const noiseStrength = 1;
@@ -510,10 +512,8 @@ const StarBackground: React.FC = () => {
       animloop();
     }
 
-    // requestAnimFrame polyfill
+    // requestAnimFrame polyfill - fixed to use only the standard API
     window.requestAnimationFrame = window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
       function(callback) {
         window.setTimeout(callback, 1000 / 60);
       };
