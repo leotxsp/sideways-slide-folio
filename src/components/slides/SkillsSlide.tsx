@@ -105,92 +105,185 @@ const SkillsSlide: React.FC = () => {
     };
   }, [api, autoScrollInterval]);
 
-  return (
-    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 px-4 md:px-6">
-      <div className="max-w-3xl w-full animate-fade-in">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
-          Habilidades & <span className="text-orange">Certificações</span>
-        </h2>
+  // Mobile view content rendering
+  const renderMobileContent = () => (
+    <div className="h-full flex flex-col justify-center px-4 pb-16">
+      <h2 className="text-3xl font-bold mb-6 text-center">
+        Habilidades & <span className="text-orange">Certificações</span>
+      </h2>
+      
+      <div className="space-y-6">
+        {/* Skills Section */}
+        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in">
+          <h3 className="text-xl font-bold mb-3 text-center">Habilidades Técnicas</h3>
+          <div className="flex flex-wrap justify-center gap-2">
+            {personalInfo.skills.map((skill, index) => (
+              <span 
+                key={skill} 
+                className="skill-tag animate-fade-in text-xs"
+                style={{ animationDelay: `${index * 0.05}s` }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
         
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="flex flex-col items-center w-full">
-            <div className="mb-4">
-              <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
-            </div>
-            <div className="flex flex-wrap justify-center gap-3 w-full">
-              {personalInfo.skills.map((skill, index) => (
-                <span 
-                  key={skill} 
-                  className="skill-tag animate-fade-in hover:bg-orange/30 hover:border-orange/40 transition-colors"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+        {/* Certifications Section */}
+        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in">
+          <h3 className="text-xl font-bold mb-3 text-center">Certificações</h3>
+          <ul className="space-y-2">
+            {certifications.map((cert, index) => (
+              <li key={index} className="flex items-start gap-2 text-sm animate-fade-in" 
+                  style={{ animationDelay: `${index * 0.1}s` }}>
+                <CheckCircle className="w-4 h-4 text-orange mt-1 flex-shrink-0" />
+                <span>{cert}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        {/* Credly Badges Section */}
+        <div className="animate-fade-in">
+          <div className="flex items-center gap-2 justify-center mb-3">
+            <Award className="w-5 h-5 text-orange" />
+            <h3 className="text-xl font-bold">Credly Badges</h3>
           </div>
           
-          <div className="flex flex-col items-center md:items-start w-full">
-            <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">Certificações</h3>
-            <ul className="space-y-3 w-full max-w-xs md:max-w-none">
-              {certifications.map((cert, index) => (
-                <li key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <CheckCircle className="w-5 h-5 text-orange mt-1 flex-shrink-0" />
-                  <span>{cert}</span>
-                </li>
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {credlyBadges.map((badge, index) => (
+                <CarouselItem 
+                  key={badge.id} 
+                  className="basis-1/3 md:basis-1/4"
+                >
+                  <a 
+                    href={badge.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="block w-full"
+                  >
+                    <div className="bg-purple/10 p-2 rounded-lg border border-purple/20 hover:border-orange/30 transition-all flex flex-col items-center h-full">
+                      <img 
+                        src={badge.imageUrl} 
+                        alt={badge.title}
+                        className="w-12 h-12 object-contain mb-1" 
+                      />
+                      <p className="text-xs text-center line-clamp-1">{badge.title}</p>
+                      <p className="text-xs text-cream/60 text-center">{badge.issuer}</p>
+                    </div>
+                  </a>
+                </CarouselItem>
               ))}
-            </ul>
-            
-            {/* Credly Badges Carousel with Auto-scroll */}
-            <div className="mt-6 w-full">
-              <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
-                <Award className="w-5 h-5 text-orange" />
-                <h3 className="text-xl font-semibold">Credly Badges</h3>
-              </div>
-              
-              <Carousel
-                setApi={setApi}
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full"
-              >
-                <CarouselContent>
-                  {credlyBadges.map((badge, index) => (
-                    <CarouselItem 
-                      key={badge.id} 
-                      className="flex justify-center basis-1/2 md:basis-1/3 animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <a 
-                        href={badge.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="block w-full"
-                      >
-                        <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
-                          <img 
-                            src={badge.imageUrl} 
-                            alt={badge.title}
-                            className="w-16 h-16 md:w-20 md:h-20 object-contain mb-2" 
-                          />
-                          <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
-                          <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
-                        </div>
-                      </a>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center mt-4 gap-2">
-                  <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
-                  <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
-                </div>
-              </Carousel>
+            </CarouselContent>
+            <div className="flex justify-center mt-3 gap-2">
+              <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 h-7 w-7" />
+              <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 h-7 w-7" />
             </div>
+          </Carousel>
+        </div>
+      </div>
+    </div>
+  );
+  
+  // Desktop view content rendering
+  const renderDesktopContent = () => (
+    <div className="max-w-3xl w-full animate-fade-in">
+      <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+        Habilidades & <span className="text-orange">Certificações</span>
+      </h2>
+      
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="flex flex-col items-center w-full">
+          <div className="mb-4">
+            <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3 w-full">
+            {personalInfo.skills.map((skill, index) => (
+              <span 
+                key={skill} 
+                className="skill-tag animate-fade-in hover:bg-orange/30 hover:border-orange/40 transition-colors"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        <div className="flex flex-col items-center md:items-start w-full">
+          <h3 className="text-2xl font-semibold mb-4 text-center md:text-left">Certificações</h3>
+          <ul className="space-y-3 w-full max-w-xs md:max-w-none">
+            {certifications.map((cert, index) => (
+              <li key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <CheckCircle className="w-5 h-5 text-orange mt-1 flex-shrink-0" />
+                <span>{cert}</span>
+              </li>
+            ))}
+          </ul>
+          
+          {/* Credly Badges Carousel with Auto-scroll */}
+          <div className="mt-6 w-full">
+            <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
+              <Award className="w-5 h-5 text-orange" />
+              <h3 className="text-xl font-semibold">Credly Badges</h3>
+            </div>
+            
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {credlyBadges.map((badge, index) => (
+                  <CarouselItem 
+                    key={badge.id} 
+                    className="flex justify-center basis-1/3 md:basis-1/4 animate-fade-in"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <a 
+                      href={badge.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="block w-full"
+                    >
+                      <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
+                        <img 
+                          src={badge.imageUrl} 
+                          alt={badge.title}
+                          className="w-16 h-16 object-contain mb-2" 
+                        />
+                        <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
+                        <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
+                      </div>
+                    </a>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-4 gap-2">
+                <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
+                <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
+              </div>
+            </Carousel>
           </div>
         </div>
       </div>
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24">
+      {isMobile ? renderMobileContent() : renderDesktopContent()}
     </div>
   );
 };
