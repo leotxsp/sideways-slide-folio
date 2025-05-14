@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState, useCallback } from 'react';
-import { CheckCircle, Award } from 'lucide-react';
-import useEmblaCarousel from 'embla-carousel-react';
+import { CheckCircle } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { personalInfo } from '@/data/personalInfo';
+import CredlyBadgesCarousel from '../../components/CredlyBadgesCarousel';
 
 interface Badge {
   id: string;
@@ -74,54 +73,6 @@ const SkillsSlide: React.FC = () => {
       url: "https://www.credly.com/badges/ffda2e42-6472-4a2e-8f5d-926dc2fcb42a/public_url"
     }
   ];
-  
-  // Improved carousel setup
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: true,
-    dragFree: true,
-  });
-  
-  const [autoplay, setAutoplay] = useState(true);
-  const [autoplayDelay] = useState(30);
-  const [autoplayInterval, setAutoplayInterval] = useState<ReturnType<typeof setInterval> | null>(null);
-
-  const stopAutoplay = useCallback(() => {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      setAutoplayInterval(null);
-    }
-    setAutoplay(false);
-  }, [autoplayInterval]);
-
-  const startAutoplay = useCallback(() => {
-    if (emblaApi && !autoplayInterval) {
-      const interval = setInterval(() => {
-        if (!emblaApi.canScrollNext()) {
-          emblaApi.scrollTo(0);
-        } else {
-          emblaApi.scrollNext();
-        }
-      }, autoplayDelay);
-      
-      setAutoplayInterval(interval);
-      setAutoplay(true);
-    }
-  }, [emblaApi, autoplayDelay, autoplayInterval]);
-
-  // Handle autoplay init and cleanup
-  useEffect(() => {
-    if (!emblaApi) return;
-    
-    // Start autoplay when component mounts
-    if (autoplay) {
-      startAutoplay();
-    }
-    
-    return () => {
-      if (autoplayInterval) clearInterval(autoplayInterval);
-    };
-  }, [emblaApi, autoplay, startAutoplay, autoplayInterval]);
 
   // Mobile view content rendering
   const renderMobileContent = () => (
@@ -161,47 +112,9 @@ const SkillsSlide: React.FC = () => {
           </ul>
         </div>
         
-        {/* Credly Badges Section - Improved Carousel */}
+        {/* Credly Badges Section */}
         <div className="animate-fade-in w-full max-w-[100vw]">
-          <div className="flex items-center gap-2 justify-center mb-3">
-            <Award className="w-5 h-5 text-orange" />
-            <h3 className="text-xl font-bold">Credly Badges</h3>
-          </div>
-          
-          <div 
-            ref={emblaRef} 
-            className="overflow-hidden w-full" 
-            onMouseEnter={stopAutoplay}
-            onMouseLeave={startAutoplay}
-            onTouchStart={stopAutoplay}
-            onTouchEnd={() => setTimeout(startAutoplay, 3000)}
-          >
-            <div className="flex">
-              {credlyBadges.map((badge) => (
-                <div 
-                  key={badge.id} 
-                  className="flex-shrink-0 min-w-[45%] px-2"
-                >
-                  <a 
-                    href={badge.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="block w-full"
-                  >
-                    <div className="bg-purple/10 p-2 rounded-lg border border-purple/20 hover:border-orange/30 transition-all flex flex-col items-center h-full">
-                      <img 
-                        src={badge.imageUrl} 
-                        alt={badge.title}
-                        className="w-12 h-12 object-contain mb-1" 
-                      />
-                      <p className="text-xs text-center line-clamp-1">{badge.title}</p>
-                      <p className="text-xs text-cream/60 text-center">{badge.issuer}</p>
-                    </div>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </div>
+          <CredlyBadgesCarousel badges={credlyBadges} isMobile={isMobile} />
         </div>
       </div>
     </div>
@@ -243,47 +156,9 @@ const SkillsSlide: React.FC = () => {
             ))}
           </ul>
           
-          {/* Credly Badges Smooth Carousel */}
+          {/* Credly Badges Section */}
           <div className="mt-6 w-full">
-            <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
-              <Award className="w-5 h-5 text-orange" />
-              <h3 className="text-xl font-semibold">Credly Badges</h3>
-            </div>
-            
-            <div 
-              ref={emblaRef} 
-              className="overflow-hidden w-full"
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
-              onTouchStart={() => setIsHovering(true)}
-              onTouchEnd={() => setTimeout(() => setIsHovering(false), 5000)}
-            >
-              <div className="flex">
-                {credlyBadges.map((badge) => (
-                  <div 
-                    key={badge.id} 
-                    className="flex-shrink-0 min-w-[22%] px-2"
-                  >
-                    <a 
-                      href={badge.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="block w-full"
-                    >
-                      <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
-                        <img 
-                          src={badge.imageUrl} 
-                          alt={badge.title}
-                          className="w-16 h-16 object-contain mb-2" 
-                        />
-                        <h4 className="text-sm font-medium text-center line-clamp-2">{badge.title}</h4>
-                        <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <CredlyBadgesCarousel badges={credlyBadges} isMobile={isMobile} />
           </div>
         </div>
       </div>
@@ -296,4 +171,5 @@ const SkillsSlide: React.FC = () => {
     </div>
   );
 };
+
 export default SkillsSlide;
