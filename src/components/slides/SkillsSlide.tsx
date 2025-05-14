@@ -1,13 +1,6 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { CheckCircle, Award } from 'lucide-react';
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from '@/components/ui/carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { personalInfo } from '@/data/personalInfo';
@@ -82,40 +75,53 @@ const SkillsSlide: React.FC = () => {
     }
   ];
   
-  // Fix 1: Remove the 'speed' property which is not valid in the OptionsType
+  // Improved carousel setup
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
-    dragFree: true
+    dragFree: true,
   });
   
-  const [isHovering, setIsHovering] = useState(false);
-  const [autoScrollInterval, setAutoScrollInterval] = useState<number | null>(null);
-  
-  // Set up auto-scrolling that stops on hover
+  const [autoplay, setAutoplay] = useState(true);
+  const [autoplayDelay] = useState(30);
+  const [autoplayInterval, setAutoplayInterval] = useState<ReturnType<typeof setInterval> | null>(null);
+
+  const stopAutoplay = useCallback(() => {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      setAutoplayInterval(null);
+    }
+    setAutoplay(false);
+  }, [autoplayInterval]);
+
+  const startAutoplay = useCallback(() => {
+    if (emblaApi && !autoplayInterval) {
+      const interval = setInterval(() => {
+        if (!emblaApi.canScrollNext()) {
+          emblaApi.scrollTo(0);
+        } else {
+          emblaApi.scrollNext();
+        }
+      }, autoplayDelay);
+      
+      setAutoplayInterval(interval);
+      setAutoplay(true);
+    }
+  }, [emblaApi, autoplayDelay, autoplayInterval]);
+
+  // Handle autoplay init and cleanup
   useEffect(() => {
-    if (!emblaApi || isHovering) return;
+    if (!emblaApi) return;
     
-    // Start auto-scrolling
-    const interval = window.setInterval(() => {
-      // Fix 2: Pass a boolean instead of an object with duration
-      emblaApi.scrollNext();
-    }, 50); // Smooth continuous scrolling
-    
-    setAutoScrollInterval(interval);
+    // Start autoplay when component mounts
+    if (autoplay) {
+      startAutoplay();
+    }
     
     return () => {
-      if (autoScrollInterval) window.clearInterval(autoScrollInterval);
+      if (autoplayInterval) clearInterval(autoplayInterval);
     };
-  }, [emblaApi, isHovering, autoScrollInterval]);
-
-  // Clear interval when hovering
-  useEffect(() => {
-    if (isHovering && autoScrollInterval) {
-      window.clearInterval(autoScrollInterval);
-      setAutoScrollInterval(null);
-    }
-  }, [isHovering, autoScrollInterval]);
+  }, [emblaApi, autoplay, startAutoplay, autoplayInterval]);
 
   // Mobile view content rendering
   const renderMobileContent = () => (
@@ -155,7 +161,7 @@ const SkillsSlide: React.FC = () => {
           </ul>
         </div>
         
-        {/* Credly Badges Section - Smooth Carousel */}
+        {/* Credly Badges Section - Improved Carousel */}
         <div className="animate-fade-in w-full max-w-[100vw]">
           <div className="flex items-center gap-2 justify-center mb-3">
             <Award className="w-5 h-5 text-orange" />
@@ -165,10 +171,10 @@ const SkillsSlide: React.FC = () => {
           <div 
             ref={emblaRef} 
             className="overflow-hidden w-full" 
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-            onTouchStart={() => setIsHovering(true)}
-            onTouchEnd={() => setTimeout(() => setIsHovering(false), 5000)}
+            onMouseEnter={stopAutoplay}
+            onMouseLeave={startAutoplay}
+            onTouchStart={stopAutoplay}
+            onTouchEnd={() => setTimeout(startAutoplay, 3000)}
           >
             <div className="flex">
               {credlyBadges.map((badge) => (
