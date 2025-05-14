@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, Award } from 'lucide-react';
 import { 
@@ -96,7 +95,7 @@ const SkillsSlide: React.FC = () => {
       } else {
         api.scrollTo(0); // Loop back to the beginning
       }
-    }, 4000); // Scroll every 4 seconds
+    }, 3000); // Scroll every 4 seconds
     
     setAutoScrollInterval(interval);
     
@@ -107,14 +106,14 @@ const SkillsSlide: React.FC = () => {
 
   // Mobile view content rendering
   const renderMobileContent = () => (
-    <div className="h-full flex flex-col justify-center px-4 pb-16">
+    <div className="h-full w-full flex flex-col items-center px-4 pb-16 overflow-hidden">
       <h2 className="text-3xl font-bold mb-6 text-center">
         Habilidades & <span className="text-orange">Certificações</span>
       </h2>
       
-      <div className="space-y-6">
+      <div className="w-full max-w-[100vw] space-y-6">
         {/* Skills Section */}
-        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in">
+        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in w-full">
           <h3 className="text-xl font-bold mb-3 text-center">Habilidades Técnicas</h3>
           <div className="flex flex-wrap justify-center gap-2">
             {personalInfo.skills.map((skill, index) => (
@@ -130,7 +129,7 @@ const SkillsSlide: React.FC = () => {
         </div>
         
         {/* Certifications Section */}
-        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in">
+        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in w-full">
           <h3 className="text-xl font-bold mb-3 text-center">Certificações</h3>
           <ul className="space-y-2">
             {certifications.map((cert, index) => (
@@ -144,7 +143,7 @@ const SkillsSlide: React.FC = () => {
         </div>
         
         {/* Credly Badges Section */}
-        <div className="animate-fade-in">
+        <div className="animate-fade-in w-full max-w-[100vw]">
           <div className="flex items-center gap-2 justify-center mb-3">
             <Award className="w-5 h-5 text-orange" />
             <h3 className="text-xl font-bold">Credly Badges</h3>
@@ -156,13 +155,13 @@ const SkillsSlide: React.FC = () => {
               align: "start",
               loop: true,
             }}
-            className="w-full"
+            className="w-full max-w-[calc(100vw-2rem)]"
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-4">
               {credlyBadges.map((badge, index) => (
                 <CarouselItem 
                   key={badge.id} 
-                  className="basis-1/3 md:basis-1/4"
+                  className="pl-4 basis-1/2"
                 >
                   <a 
                     href={badge.url} 
@@ -193,7 +192,7 @@ const SkillsSlide: React.FC = () => {
     </div>
   );
   
-  // Desktop view content rendering
+  // Desktop view content rendering (unchanged)
   const renderDesktopContent = () => (
     <div className="max-w-3xl w-full animate-fade-in">
       <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
@@ -249,7 +248,7 @@ const SkillsSlide: React.FC = () => {
                   <CarouselItem 
                     key={badge.id} 
                     className="flex justify-center basis-1/3 md:basis-1/4 animate-fade-in"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    style={{ animationDelay: `${index * 0.4}s` }}
                   >
                     <a 
                       href={badge.url} 
@@ -282,10 +281,9 @@ const SkillsSlide: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24">
+    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 overflow-x-hidden">
       {isMobile ? renderMobileContent() : renderDesktopContent()}
     </div>
   );
 };
-
 export default SkillsSlide;
