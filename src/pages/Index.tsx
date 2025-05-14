@@ -127,7 +127,7 @@ const Index = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-dark">
+      <div className="min-h-screen relative z-10">
         <SocialLinks />
         
         {isMobile ? (
