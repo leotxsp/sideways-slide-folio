@@ -82,11 +82,11 @@ const SkillsSlide: React.FC = () => {
     }
   ];
   
+  // Fix 1: Remove the 'speed' property which is not valid in the OptionsType
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     loop: true,
-    dragFree: true,
-    speed: 20
+    dragFree: true
   });
   
   const [isHovering, setIsHovering] = useState(false);
@@ -98,7 +98,8 @@ const SkillsSlide: React.FC = () => {
     
     // Start auto-scrolling
     const interval = window.setInterval(() => {
-      emblaApi.scrollNext({ duration: 50 });
+      // Fix 2: Pass a boolean instead of an object with duration
+      emblaApi.scrollNext();
     }, 50); // Smooth continuous scrolling
     
     setAutoScrollInterval(interval);
