@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Award } from 'lucide-react';
 
@@ -13,55 +13,64 @@ interface Badge {
 interface CredlyBadgesCarouselProps {
   badges: Badge[];
   isMobile: boolean;
+  autoplayDelay?: number;
 }
 
-const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({ badges, isMobile }) => {
+const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({ 
+  badges, 
+  isMobile,
+  autoplayDelay = 3000
+}) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
+    align: "center",
     loop: true,
-    dragFree: true,
+    dragFree: false,
+    skipSnaps: true,
+    duration: 2500 
   });
   
-  const [autoplay, setAutoplay] = useState(true);
-  const [autoplayDelay] = useState(30);
-  const [autoplayInterval, setAutoplayInterval] = useState<ReturnType<typeof setInterval> | null>(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const scrollNext = useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const stopAutoplay = useCallback(() => {
-    if (autoplayInterval) {
-      clearInterval(autoplayInterval);
-      setAutoplayInterval(null);
+    if (autoplayIntervalRef.current) {
+      clearInterval(autoplayIntervalRef.current);
+      autoplayIntervalRef.current = null;
     }
-    setAutoplay(false);
-    setIsHovering(true);
-  }, [autoplayInterval]);
+  }, []);
 
   const startAutoplay = useCallback(() => {
-    if (emblaApi && !autoplayInterval && !isHovering) {
-      const interval = setInterval(() => {
-        if (!emblaApi.canScrollNext()) {
-          emblaApi.scrollTo(0);
-        } else {
-          emblaApi.scrollNext();
-        }
-      }, autoplayDelay);
-      
-      setAutoplayInterval(interval);
-      setAutoplay(true);
-    }
-  }, [emblaApi, autoplayDelay, autoplayInterval, isHovering]);
+    if (!emblaApi) return;
+    stopAutoplay();
+    autoplayIntervalRef.current = setInterval(scrollNext, autoplayDelay);
+  }, [autoplayDelay, emblaApi, scrollNext, stopAutoplay]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    startAutoplay();
+    return () => stopAutoplay();
+  }, [emblaApi, startAutoplay, stopAutoplay]);
 
   useEffect(() => {
     if (!emblaApi) return;
     
-    if (autoplay && !isHovering) {
-      startAutoplay();
-    }
+    const onPointerDown = () => stopAutoplay();
+    const onSettle = () => {
+      if (!autoplayIntervalRef.current) startAutoplay();
+    };
+    
+    emblaApi.on('pointerDown', onPointerDown);
+    emblaApi.on('settle', onSettle);
     
     return () => {
-      if (autoplayInterval) clearInterval(autoplayInterval);
+      emblaApi.off('pointerDown', onPointerDown);
+      emblaApi.off('settle', onSettle);
     };
-  }, [emblaApi, autoplay, startAutoplay, autoplayInterval, isHovering]);
+  }, [emblaApi, startAutoplay, stopAutoplay]);
 
   return (
     <div className="w-full">
@@ -72,46 +81,42 @@ const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({ badges, isM
       
       <div 
         ref={emblaRef} 
-        className="overflow-hidden w-full"
+        className="overflow-hidden w-full embla"
         onMouseEnter={stopAutoplay}
-        onMouseLeave={() => {
-          setIsHovering(false);
-          startAutoplay();
-        }}
-        onTouchStart={stopAutoplay}
-        onTouchEnd={() => {
-          setTimeout(() => {
-            setIsHovering(false);
-            startAutoplay();
-          }, 3000);
-        }}
+        onMouseLeave={startAutoplay}
       >
         <div className="flex">
           {badges.map((badge) => (
             <div 
               key={badge.id} 
-              className={`flex-shrink-0 ${isMobile ? 'min-w-[45%]' : 'min-w-[22%]'} px-2`}
+              className={`flex-shrink-0 ${isMobile ? 'w-[85%]' : 'w-1/3'} px-2`}
             >
-              <a 
-                href={badge.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="block w-full"
-              >
-                <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col items-center">
-                  <img 
-                    src={badge.imageUrl} 
-                    alt={badge.title}
-                    className={`${isMobile ? 'w-12 h-12' : 'w-16 h-16'} object-contain mb-2`} 
-                  />
-                  <h4 className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-center line-clamp-2`}>
-                    {badge.title}
-                  </h4>
-                  <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">
-                    {badge.issuer}
-                  </p>
-                </div>
-              </a>
+              <div className="h-full flex flex-col">
+                <a 
+                  href={badge.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="block h-full"
+                >
+                  <div className="bg-purple/10 p-3 rounded-lg border border-purple/20 hover:border-orange/30 transition-all h-full flex flex-col">
+                    <div className="flex justify-center mb-2">
+                      <img 
+                        src={badge.imageUrl} 
+                        alt={badge.title}
+                        className={`${isMobile ? 'w-16 h-16' : 'w-20 h-20'} object-contain`}
+                      />
+                    </div>
+                    <div className="flex-grow flex flex-col">
+                      <h4 className="text-sm font-medium text-center line-clamp-2 break-words">
+                        {badge.title}
+                      </h4>
+                      <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1 text-center">
+                        {badge.issuer}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </div>
             </div>
           ))}
         </div>

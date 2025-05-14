@@ -178,11 +178,4 @@
     }
   }
 
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-  }
-
-  .animate-slide-in-mobile {
-    animation: slideInMobile 0.8s ease-out forwards;
-  }
 }

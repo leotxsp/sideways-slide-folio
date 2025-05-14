@@ -166,7 +166,7 @@ const SkillsSlide: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 overflow-x-hidden">
+    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 overflow-x-hidden ">
       {isMobile ? renderMobileContent() : renderDesktopContent()}
     </div>
   );

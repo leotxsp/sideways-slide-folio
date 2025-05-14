@@ -1,9 +1,7 @@
-
 import React, { useState, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Github, ExternalLink, Filter } from 'lucide-react';
+import { Github, ExternalLink, Filter, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { useIsMobile } from '@/hooks/use-mobile';
 import useEmblaCarousel from 'embla-carousel-react';
 import {
@@ -17,14 +15,20 @@ import {
 const ProjectsSlide: React.FC = () => {
   const isMobile = useIsMobile();
 
-  // All available tags for filtering
-  const allTags = ['Python', 'PyQt', 'XML', 'Pandas', 'Vite', 'Tailwind', 'AI', 
-                  'Typescript', 'React', 'javascript', 'Matplotlib', 'Tensorflow', 
-                  'colabs', 'Frontend', 'Backend', 'Data'];
-
   // State for active filters
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
-  
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
+  const [showTechDropdown, setShowTechDropdown] = useState(false);
+
+  // Group tags by category for better organization
+  const tagCategories = {
+    'Linguagens': ['Python', 'Typescript', 'javascript'],
+    'Frameworks': ['React', 'PyQt', 'Tailwind', 'Vite'],
+    'Categorias': ['Frontend', 'Backend', 'Data', 'AI'],
+    'Bibliotecas': ['Pandas', 'Matplotlib', 'Tensorflow', 'XML', 'colabs']
+  };
+
   // Updated projects data with more detailed tags
   const projects = [
     {
@@ -88,18 +92,9 @@ const ProjectsSlide: React.FC = () => {
 
   // Filter projects based on active filters
   const filteredProjects = activeFilters.length > 0
-    ? projects.filter(project => 
-        activeFilters.some(filter => project.tags.includes(filter))
-      )
-    : projects;
-
-  // Group tags by category for better organization
-  const tagCategories = {
-    'Linguagens': ['Python', 'Typescript', 'javascript'],
-    'Frameworks': ['React', 'PyQt', 'Tailwind', 'Vite'],
-    'Categorias': ['Frontend', 'Backend', 'Data', 'AI'],
-    'Bibliotecas': ['Pandas', 'Matplotlib', 'Tensorflow', 'XML', 'colabs']
-  };
+  ? projects.filter(project => 
+      activeFilters.some(filter => project.tags.includes(filter)))
+  : projects;
 
   // Desktop carousel setup
   const [emblaRef] = useEmblaCarousel({
@@ -108,48 +103,125 @@ const ProjectsSlide: React.FC = () => {
     slidesToScroll: 1
   });
 
-  return (
-    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 px-4 md:px-6">
-      <div className="max-w-5xl w-full">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 md:mb-8 text-center">
-          <span className="text-orange">Projetos</span>
-        </h2>
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setShowCategoryDropdown(false);
+    setShowTechDropdown(true);
+  };
 
-        {/* Filter Section */}
-        <div className="mb-6 w-full">
-          <div className="flex items-center gap-2 mb-3">
-            <Filter className="w-5 h-5 text-orange" />
-            <h3 className="text-xl font-semibold">Filtrar por:</h3>
+  const handleTechSelect = (tech: string) => {
+    toggleFilter(tech);
+    setShowTechDropdown(false);
+    setSelectedCategory(null);
+  };
+
+  const clearFilters = () => {
+    setActiveFilters([]);
+    setSelectedCategory(null);
+  };
+
+return (
+  <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 px-4 md:px-6">
+    <div className="max-w-5xl w-full">
+      <h2 className="text-4xl md:text-5xl font-bold mb-4 md:mb-8 text-center">
+        <span className="text-orange">Projetos</span>
+      </h2>
+
+      {/* Filter Section */}
+      <div className="mb-6 w-full relative">
+        <div className="flex items-center gap-2 mb-3">
+          <Filter className="w-5 h-5 text-orange" />
+          <h3 className="text-xl font-semibold">Filtrar por:</h3>
+          {activeFilters.length > 0 && (
+            <button 
+              onClick={clearFilters}
+              className="text-sm text-orange ml-2 hover:underline"
+            >
+              Limpar todos
+            </button>
+          )}
+        </div>
+        
+        <div className="flex gap-2">
+          {/* Category Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}
+              className="flex items-center gap-2 bg-dark/50 border border-purple/30 px-4 py-2 rounded-md hover:border-orange/50"
+            >
+              {selectedCategory || "Selecione uma categoria"}
+              <ChevronDown className={`w-4 h-4 transition-transform ${showCategoryDropdown ? 'rotate-180' : ''}`} />
+            </button>
+            
+            {showCategoryDropdown && (
+              <div className="absolute z-10 mt-1 w-48 bg-dark border border-purple/30 rounded-md shadow-lg">
+                {Object.keys(tagCategories).map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => handleCategorySelect(category)}
+                    className="block w-full text-left px-4 py-2 hover:bg-purple/20"
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
-          
-          <div className="space-y-2">
-            {Object.entries(tagCategories).map(([category, tags]) => (
-              <div key={category} className="space-y-1">
-                <p className="text-sm text-cream/70 mb-1">{category}</p>
-                <div className="flex flex-wrap gap-2">
-                  {tags.map(tag => (
-                    <Badge 
-                      key={tag}
-                      variant={activeFilters.includes(tag) ? "default" : "outline"}
-                      className={`cursor-pointer ${
-                        activeFilters.includes(tag) 
-                          ? "bg-orange hover:bg-orange/80" 
-                          : "hover:bg-purple/20"
+
+          {/* Technology Dropdown */}
+          {selectedCategory && (
+            <div className="relative">
+              <button
+                onClick={() => setShowTechDropdown(!showTechDropdown)}
+                className="flex items-center gap-2 bg-dark/50 border border-purple/30 px-4 py-2 rounded-md hover:border-orange/50"
+              >
+                Selecione uma tecnologia
+                <ChevronDown className={`w-4 h-4 transition-transform ${showTechDropdown ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {showTechDropdown && (
+                <div className="absolute z-10 mt-1 w-48 bg-dark border border-purple/30 rounded-md shadow-lg max-h-60 overflow-y-auto">
+                  {tagCategories[selectedCategory as keyof typeof tagCategories].map((tech) => (
+                    <button
+                      key={tech}
+                      onClick={() => handleTechSelect(tech)}
+                      className={`block w-full text-left px-4 py-2 hover:bg-purple/20 ${
+                        activeFilters.includes(tech) ? 'text-orange' : ''
                       }`}
-                      onClick={() => toggleFilter(tag)}
                     >
-                      {tag}
-                    </Badge>
+                      {tech}
+                    </button>
                   ))}
                 </div>
-              </div>
-            ))}
-          </div>
+              )}
+            </div>
+          )}
         </div>
 
+        {/* Active filters display */}
+        {activeFilters.length > 0 && (
+          <div className="mt-3">
+            <p className="text-sm text-cream/70 mb-1">Filtros ativos:</p>
+            <div className="flex flex-wrap gap-2">
+              {activeFilters.map(filter => (
+                <button 
+                  key={filter}
+                  onClick={() => toggleFilter(filter)}
+                  className="text-xs py-1 px-2 bg-orange/20 text-orange rounded-md flex items-center gap-1 hover:bg-orange/30"
+                >
+                  {filter}
+                  <span className="text-xs">×</span>
+                </button>
+              ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Rest of the component remains the same */}
         {isMobile ? (
           // Mobile view - single column with better spacing and animations
-          <div className="space-y-6">
+          <div className="space-y-6 ">
             {filteredProjects.length > 0 ? (
               filteredProjects.map((project, index) => (
                 <Card 
@@ -173,9 +245,7 @@ const ProjectsSlide: React.FC = () => {
                       {project.tags.map((tag, idx) => (
                         <span 
                           key={idx} 
-                          className={`skill-tag text-xs py-1 px-2 ${
-                            activeFilters.includes(tag) ? "border-orange text-orange" : ""
-                          }`}
+                          className="text-xs py-1 px-2 border border-purple/30 rounded-md text-orange"
                         >
                           {tag}
                         </span>
@@ -222,14 +292,12 @@ const ProjectsSlide: React.FC = () => {
                         <CardTitle className="text-cream">{project.title}</CardTitle>
                         <CardDescription className="text-purple">{project.description}</CardDescription>
                       </CardHeader>
-                      <CardContent className="flex-grow">
-                        <div className="flex flex-wrap gap-2 mb-2">
+                      <CardContent className="flex-grow ">
+                        <div className="flex flex-wrap gap-2 mb-2 ">
                           {project.tags.map((tag, idx) => (
                             <span 
                               key={idx} 
-                              className={`skill-tag ${
-                                activeFilters.includes(tag) ? "border-orange text-orange" : ""
-                              }`}
+                              className="text-xs py-1 px-2 border border-purple/30 rounded-md text-orange"
                             >
                               {tag}
                             </span>

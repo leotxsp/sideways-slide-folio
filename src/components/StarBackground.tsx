@@ -1,8 +1,9 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Delaunay from 'delaunay-fast';
 
 const StarBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [delaunayLoaded, setDelaunayLoaded] = useState(false);
 
   useEffect(() => {
     if (!canvasRef.current) return;
@@ -22,7 +23,7 @@ const StarBackground: React.FC = () => {
     const flareSizeBase = 100;
     const flareSizeMultiplier = 100;
     const lineWidth = 1;
-    const linkChance = 75;
+    const linkChance = 100;
     const linkLengthMin = 5;
     const linkLengthMax = 7;
     const linkOpacity = 0.25;
@@ -52,12 +53,9 @@ const StarBackground: React.FC = () => {
     let points: number[][] = [];
     let vertices: number[] = [];
     let triangles: number[][] = [];
-    let links: Link[] = [];
-    let particles: Particle[] = [];
-    let flares: Flare[] = [];
-
-    // Import Delaunay globally - it was installed via NPM
-    const Delaunay = (window as any).Delaunay;
+    let links: any[] = [];
+    let particles: any[] = [];
+    let flares: any[] = [];
 
     // Utility functions
     function random(min: number, max: number, float?: boolean) {
@@ -139,7 +137,6 @@ const StarBackground: React.FC = () => {
 
         if (renderParticleGlare) {
           context.globalAlpha = o * glareOpacityMultiplier;
-          
           context.beginPath();
           context.ellipse(
             pos.x, 
@@ -239,31 +236,25 @@ const StarBackground: React.FC = () => {
         switch (this.stage) {
           // VERTEX COLLECTION STAGE
           case 0:
-            // Grab the last member of the link
             const last = particles[this.verts[this.verts.length - 1]];
             
             if (last && last.neighbors && last.neighbors.length > 0) {
-              // Grab a random neighbor
               const neighbor = last.neighbors[random(0, last.neighbors.length - 1)];
-              // If we haven't seen that particle before, add it to the link
               if (this.verts.indexOf(neighbor) === -1) {
                 this.verts.push(neighbor);
               }
-            } 
-            else {
+            } else {
               this.stage = 3;
               this.finished = true;
             }
 
             if (this.verts.length >= this.length) {
-              // Calculate all distances at once
               for (i = 0; i < this.verts.length - 1; i++) {
                 const p1 = particles[this.verts[i]];
                 const p2 = particles[this.verts[i + 1]];
                 const dx = p1.x - p2.x;
                 const dy = p1.y - p2.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-
                 this.distances.push(dist);
               }
               this.stage = 1;
@@ -275,7 +266,6 @@ const StarBackground: React.FC = () => {
             if (this.distances.length > 0) {
               points = [] as [number, number][];
 
-              // Gather all points already linked
               for (i = 0; i < this.linked.length; i++) {
                 p = particles[this.linked[i]];
                 pos = position(p.x, p.y, p.z);
@@ -286,10 +276,8 @@ const StarBackground: React.FC = () => {
               this.traveled += linkSpeedRel;
               const d = this.distances[this.linked.length - 1];
               
-              // Calculate last point based on linkSpeed and distance travelled to next point
               if (this.traveled >= d) {
                 this.traveled = 0;
-                
                 this.linked.push(this.verts[this.linked.length]);
                 p = particles[this.linked[this.linked.length - 1]];
                 pos = position(p.x, p.y, p.z);
@@ -298,23 +286,19 @@ const StarBackground: React.FC = () => {
                 if (this.linked.length >= this.verts.length) {
                   this.stage = 2;
                 }
-              } 
-              else {
-                // We're still travelling to the next point, get coordinates at travel distance
+              } else {
                 const a = particles[this.linked[this.linked.length - 1]];
                 const b = particles[this.verts[this.linked.length]];
                 const t = d - this.traveled;
                 const x = ((this.traveled * b.x) + (t * a.x)) / d;
                 const y = ((this.traveled * b.y) + (t * a.y)) / d;
                 const z = ((this.traveled * b.z) + (t * a.z)) / d;
-
                 pos = position(x, y, z);
                 points.push([pos.x, pos.y]);
               }
 
               this.drawLine(points);
-            } 
-            else {
+            } else {
               this.stage = 3;
               this.finished = true;
             }
@@ -325,8 +309,6 @@ const StarBackground: React.FC = () => {
             if (this.verts.length > 1) {
               if (this.fade < linkFade) {
                 this.fade++;
-
-                // Render full link between all vertices and fade over time
                 points = [] as [number, number][];
                 const alpha = (1 - (this.fade / linkFade)) * linkOpacity;
                 
@@ -337,13 +319,11 @@ const StarBackground: React.FC = () => {
                 }
                 
                 this.drawLine(points, alpha);
-              } 
-              else {
+              } else {
                 this.stage = 3;
                 this.finished = true;
               }
-            } 
-            else {
+            } else {
               this.stage = 3;
               this.finished = true;
             }
@@ -368,11 +348,9 @@ const StarBackground: React.FC = () => {
         if (n >= noiseLength) {
           n = 0;
         }
-
         nPos = noisePoint(n);
       }
 
-      // Clear
       if (context) {
         context.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -382,25 +360,19 @@ const StarBackground: React.FC = () => {
         }
 
         if (renderParticles) {
-          // Render particles
           for (let i = 0; i < particleCount; i++) {
             particles[i].render();
           }
         }
 
         if (renderMesh) {
-          // Render all lines
           context.beginPath();
           for (let v = 0; v < vertices.length - 1; v++) {
-            // Splits the array into triplets
             if ((v + 1) % 3 === 0) { continue; }
-
             const p1 = particles[vertices[v]];
             const p2 = particles[vertices[v + 1]];
-
             const pos1 = position(p1.x, p1.y, p1.z);
             const pos2 = position(p2.x, p2.y, p2.z);
-
             context.moveTo(pos1.x, pos1.y);
             context.lineTo(pos2.x, pos2.y);
           }
@@ -411,15 +383,12 @@ const StarBackground: React.FC = () => {
         }
 
         if (renderLinks) {
-          // Possibly start a new link
           if (random(0, linkChance) === linkChance) {
             const length = random(linkLengthMin, linkLengthMax);
             const start = random(0, particles.length - 1);
             startLink(start, length);
           }
 
-          // Render existing links
-          // Iterate in reverse so that removing items doesn't affect the loop
           for (let l = links.length - 1; l >= 0; l--) {
             if (links[l] && !links[l].finished) {
               links[l].render();
@@ -430,7 +399,6 @@ const StarBackground: React.FC = () => {
         }
 
         if (renderFlares) {
-          // Render flares
           for (let j = 0; j < flareCount; j++) {
             flares[j].render();
           }
@@ -439,13 +407,12 @@ const StarBackground: React.FC = () => {
     }
 
     function init() {
-      // Size canvas
       resize();
 
       mouse.x = canvas.clientWidth / 2;
       mouse.y = canvas.clientHeight / 2;
 
-      // Create particle positions
+      // Create particles
       for (let i = 0; i < particleCount; i++) {
         const p = new Particle();
         particles.push(p);
@@ -453,51 +420,44 @@ const StarBackground: React.FC = () => {
       }
 
       // Delaunay triangulation
-      if (Delaunay) {
-        vertices = Delaunay.triangulate(points);
-        
-        // Create an array of "triangles" (groups of 3 indices)
-        let tri: number[] = [];
-        for (let i = 0; i < vertices.length; i++) {
-          if (tri.length === 3) {
-            triangles.push(tri);
-            tri = [];
-          }
-          tri.push(vertices[i]);
+      vertices = Delaunay.triangulate(points);
+      
+      // Create triangles
+      let tri: number[] = [];
+      for (let i = 0; i < vertices.length; i++) {
+        if (tri.length === 3) {
+          triangles.push(tri);
+          tri = [];
         }
+        tri.push(vertices[i]);
+      }
 
-        // Tell all the particles who their neighbors are
-        for (let i = 0; i < particles.length; i++) {
-          // Loop through all triangles
-          for (let j = 0; j < triangles.length; j++) {
-            // Check if this particle's index is in this triangle
-            const k = triangles[j].indexOf(i);
-            // If it is, add its neighbors to the particles contacts list
-            if (k !== -1) {
-              triangles[j].forEach((value) => {
-                if (value !== i && particles[i].neighbors.indexOf(value) === -1) {
-                  particles[i].neighbors.push(value);
-                }
-              });
-            }
+      // Set neighbors
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = 0; j < triangles.length; j++) {
+          const k = triangles[j].indexOf(i);
+          if (k !== -1) {
+            triangles[j].forEach((value) => {
+              if (value !== i && particles[i].neighbors.indexOf(value) === -1) {
+                particles[i].neighbors.push(value);
+              }
+            });
           }
         }
       }
 
       if (renderFlares) {
-        // Create flare positions
         for (let i = 0; i < flareCount; i++) {
           flares.push(new Flare());
         }
       }
 
-      // Mouse move listener
+      // Event listeners
       document.body.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
       });
 
-      // Window resize listener
       window.addEventListener('resize', resize);
 
       // Animation loop
@@ -510,19 +470,8 @@ const StarBackground: React.FC = () => {
       animloop();
     }
 
-    // Initialize
-    if (Delaunay) {
-      init();
-    } else {
-      console.error("Delaunay triangulation library not loaded");
-      
-      // Load Delaunay from CDN as fallback
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/delaunay-fast@1.0.1/delaunay.js';
-      script.onload = init;
-      document.head.appendChild(script);
-    }
-    
+    init();
+
     // Cleanup
     return () => {
       window.removeEventListener('resize', resize);
