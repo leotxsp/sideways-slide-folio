@@ -37,7 +37,6 @@ const StarBackground: React.FC = () => {
     const renderMesh = false;
     const flicker = true;
     const flickerSmoothing = 15;
-    // Add the missing blurSize variable
     const blurSize = 0;
     const randomMotion = true;
     const noiseLength = 1000;
@@ -425,8 +424,7 @@ const StarBackground: React.FC = () => {
             if (links[l] && !links[l].finished) {
               links[l].render();
             } else {
-              links[l] = links[links.length - 1];
-              links.pop();
+              links.splice(l, 1);
             }
           }
         }
@@ -511,12 +509,6 @@ const StarBackground: React.FC = () => {
       
       animloop();
     }
-
-    // requestAnimFrame polyfill - fixed to use only the standard API
-    window.requestAnimationFrame = window.requestAnimationFrame ||
-      function(callback) {
-        window.setTimeout(callback, 1000 / 60);
-      };
 
     // Initialize
     if (Delaunay) {

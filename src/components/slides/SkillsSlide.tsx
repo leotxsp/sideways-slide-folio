@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, Award } from 'lucide-react';
 import { 
@@ -81,28 +82,39 @@ const SkillsSlide: React.FC = () => {
     }
   ];
   
-  const [api, setApi] = useState<ReturnType<typeof useEmblaCarousel>[1]>(null);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+    dragFree: true,
+    speed: 20
+  });
+  
+  const [isHovering, setIsHovering] = useState(false);
   const [autoScrollInterval, setAutoScrollInterval] = useState<number | null>(null);
   
-  // Set up auto-scrolling
+  // Set up auto-scrolling that stops on hover
   useEffect(() => {
-    if (!api) return;
+    if (!emblaApi || isHovering) return;
     
     // Start auto-scrolling
     const interval = window.setInterval(() => {
-      if (api.canScrollNext()) {
-        api.scrollNext();
-      } else {
-        api.scrollTo(0); // Loop back to the beginning
-      }
-    }, 3000); // Scroll every 4 seconds
+      emblaApi.scrollNext({ duration: 50 });
+    }, 50); // Smooth continuous scrolling
     
     setAutoScrollInterval(interval);
     
     return () => {
-      if (autoScrollInterval) clearInterval(autoScrollInterval);
+      if (autoScrollInterval) window.clearInterval(autoScrollInterval);
     };
-  }, [api, autoScrollInterval]);
+  }, [emblaApi, isHovering, autoScrollInterval]);
+
+  // Clear interval when hovering
+  useEffect(() => {
+    if (isHovering && autoScrollInterval) {
+      window.clearInterval(autoScrollInterval);
+      setAutoScrollInterval(null);
+    }
+  }, [isHovering, autoScrollInterval]);
 
   // Mobile view content rendering
   const renderMobileContent = () => (
@@ -142,26 +154,26 @@ const SkillsSlide: React.FC = () => {
           </ul>
         </div>
         
-        {/* Credly Badges Section */}
+        {/* Credly Badges Section - Smooth Carousel */}
         <div className="animate-fade-in w-full max-w-[100vw]">
           <div className="flex items-center gap-2 justify-center mb-3">
             <Award className="w-5 h-5 text-orange" />
             <h3 className="text-xl font-bold">Credly Badges</h3>
           </div>
           
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full max-w-[calc(100vw-2rem)]"
+          <div 
+            ref={emblaRef} 
+            className="overflow-hidden w-full" 
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+            onTouchStart={() => setIsHovering(true)}
+            onTouchEnd={() => setTimeout(() => setIsHovering(false), 5000)}
           >
-            <CarouselContent className="-ml-4">
-              {credlyBadges.map((badge, index) => (
-                <CarouselItem 
+            <div className="flex">
+              {credlyBadges.map((badge) => (
+                <div 
                   key={badge.id} 
-                  className="pl-4 basis-1/2"
+                  className="flex-shrink-0 min-w-[45%] px-2"
                 >
                   <a 
                     href={badge.url} 
@@ -179,20 +191,16 @@ const SkillsSlide: React.FC = () => {
                       <p className="text-xs text-cream/60 text-center">{badge.issuer}</p>
                     </div>
                   </a>
-                </CarouselItem>
+                </div>
               ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-3 gap-2">
-              <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 h-7 w-7" />
-              <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 h-7 w-7" />
             </div>
-          </Carousel>
+          </div>
         </div>
       </div>
     </div>
   );
   
-  // Desktop view content rendering (unchanged)
+  // Desktop view content rendering
   const renderDesktopContent = () => (
     <div className="max-w-3xl w-full animate-fade-in">
       <h2 className="text-4xl md:text-5xl font-bold mb-8 text-center">
@@ -228,27 +236,26 @@ const SkillsSlide: React.FC = () => {
             ))}
           </ul>
           
-          {/* Credly Badges Carousel with Auto-scroll */}
+          {/* Credly Badges Smooth Carousel */}
           <div className="mt-6 w-full">
             <div className="flex items-center gap-2 mb-4 justify-center md:justify-start">
               <Award className="w-5 h-5 text-orange" />
               <h3 className="text-xl font-semibold">Credly Badges</h3>
             </div>
             
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              className="w-full"
+            <div 
+              ref={emblaRef} 
+              className="overflow-hidden w-full"
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
+              onTouchStart={() => setIsHovering(true)}
+              onTouchEnd={() => setTimeout(() => setIsHovering(false), 5000)}
             >
-              <CarouselContent>
-                {credlyBadges.map((badge, index) => (
-                  <CarouselItem 
+              <div className="flex">
+                {credlyBadges.map((badge) => (
+                  <div 
                     key={badge.id} 
-                    className="flex justify-center basis-1/3 md:basis-1/4 animate-fade-in"
-                    style={{ animationDelay: `${index * 0.4}s` }}
+                    className="flex-shrink-0 min-w-[22%] px-2"
                   >
                     <a 
                       href={badge.url} 
@@ -266,14 +273,10 @@ const SkillsSlide: React.FC = () => {
                         <p className="text-xs text-cream/70 light-mode:text-dark/70 mt-1">{badge.issuer}</p>
                       </div>
                     </a>
-                  </CarouselItem>
+                  </div>
                 ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-4 gap-2">
-                <CarouselPrevious className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
-                <CarouselNext className="static translate-y-0 bg-purple/10 hover:bg-orange/20 border-purple/20 hover:border-orange/30 light-mode:bg-purple/20 light-mode:hover:bg-orange/30" />
               </div>
-            </Carousel>
+            </div>
           </div>
         </div>
       </div>
