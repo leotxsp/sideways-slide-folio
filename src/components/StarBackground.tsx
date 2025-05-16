@@ -1,3 +1,14 @@
+
+/**
+ * Stars
+ * Inspired by Steve Courtney's poster art for Celsius GS's Drifter - http://celsiusgs.com/drifter/posters.php
+ * by Cory Hughart - http://coryhughart.com
+ */
+
+
+
+
+
 import React, { useEffect, useRef, useState } from 'react';
 import Delaunay from 'delaunay-fast';
 
