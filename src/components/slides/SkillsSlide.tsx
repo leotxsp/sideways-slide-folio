@@ -110,18 +110,16 @@ const SkillsSlide: React.FC = () => {
               {personalInfo.skills.map((skill, index) => (
                 <Card 
                   key={index}
-                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in overflow-hidden"
+                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in flex flex-col"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <CardContent className="p-3">
-                    <div className="flex flex-col space-y-2">
-                      <div className="flex items-start justify-between">
-                        <h4 className="font-medium text-orange truncate pr-1">{skill.name}</h4>
-                        <Badge className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap flex-shrink-0`}>
-                          {skill.level}
-                        </Badge>
-                      </div>
-                      <p className="text-xs text-cream/70">{skill.category}</p>
+                  <CardContent className="p-3 flex flex-col h-full">
+                    <h4 className="font-medium text-orange mb-1 truncate w-full text-center">{skill.name}</h4>
+                    <p className="text-xs text-cream/70 mb-auto text-center">{skill.category}</p>
+                    <div className="flex justify-center mt-2">
+                      <Badge className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap mt-auto`}>
+                        {skill.level}
+                      </Badge>
                     </div>
                   </CardContent>
                 </Card>
@@ -174,18 +172,16 @@ const SkillsSlide: React.FC = () => {
               {personalInfo.skills.map((skill, index) => (
                 <Card 
                   key={index}
-                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in overflow-hidden"
+                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in flex flex-col"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <CardContent className="p-3">
-                    <div className="flex flex-col space-y-2">
-                      <div className="flex items-start justify-between">
-                        <h4 className="font-medium text-orange truncate pr-1">{skill.name}</h4>
-                        <Badge className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap flex-shrink-0`}>
-                          {skill.level}
-                        </Badge>
-                      </div>
-                      <p className="text-xs text-cream/70">{skill.category}</p>
+                  <CardContent className="p-3 flex flex-col h-full">
+                    <h4 className="font-medium text-orange mb-1 truncate w-full text-center">{skill.name}</h4>
+                    <p className="text-xs text-cream/70 mb-auto text-center">{skill.category}</p>
+                    <div className="flex justify-center mt-2">
+                      <Badge className={`${getLevelColor(skill.level)} text-xs whitespace-nowrap mt-auto`}>
+                        {skill.level}
+                      </Badge>
                     </div>
                   </CardContent>
                 </Card>
