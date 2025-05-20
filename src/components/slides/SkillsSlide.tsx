@@ -6,6 +6,7 @@ import { personalInfo } from '@/data/personalInfo';
 import CredlyBadgesCarousel from '../../components/CredlyBadgesCarousel';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Badge {
   id: string;
@@ -104,25 +105,27 @@ const SkillsSlide: React.FC = () => {
         <div className="animate-fade-in w-full">
           <h3 className="text-xl font-bold mb-3 text-center">Habilidades Técnicas</h3>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {personalInfo.skills.map((skill, index) => (
-              <Card 
-                key={index}
-                className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-medium">{skill.name}</h4>
-                    <Badge className={`${getLevelColor(skill.level)} text-xs`}>
-                      {skill.level}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <ScrollArea className="h-64 rounded-md border border-purple/20">
+            <div className="grid grid-cols-2 gap-3 p-4">
+              {personalInfo.skills.map((skill, index) => (
+                <Card 
+                  key={index}
+                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-medium">{skill.name}</h4>
+                      <Badge className={`${getLevelColor(skill.level)} text-xs`}>
+                        {skill.level}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
         
         {/* Certifications Section */}
@@ -163,25 +166,28 @@ const SkillsSlide: React.FC = () => {
           <div className="mb-4">
             <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
           </div>
-          <div className="grid grid-cols-1 gap-3 w-full">
-            {personalInfo.skills.map((skill, index) => (
-              <Card 
-                key={index}
-                className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
-                style={{ animationDelay: `${index * 0.05}s` }}
-              >
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-center">
-                    <h4 className="font-medium">{skill.name}</h4>
-                    <Badge className={`${getLevelColor(skill.level)} text-xs`}>
-                      {skill.level}
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          
+          <ScrollArea className="h-[350px] w-full rounded-md border border-purple/20">
+            <div className="grid grid-cols-2 gap-3 p-4">
+              {personalInfo.skills.map((skill, index) => (
+                <Card 
+                  key={index}
+                  className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-medium">{skill.name}</h4>
+                      <Badge className={`${getLevelColor(skill.level)} text-xs`}>
+                        {skill.level}
+                      </Badge>
+                    </div>
+                    <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </ScrollArea>
         </div>
         
         <div className="flex flex-col items-center md:items-start w-full">
