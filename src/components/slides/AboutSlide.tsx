@@ -1,5 +1,5 @@
-
 import React from 'react';
+import { personalInfo } from '@/data/personalInfo';
 
 const AboutSlide: React.FC = () => {
   return (
@@ -11,22 +11,20 @@ const AboutSlide: React.FC = () => {
         
         <div className="space-y-6 text-lg mb-8">
           <p>
-            Sou um profissional de Ciência de Dados com sólida formação técnica e experiência
-            em desenvolvimento de soluções baseadas em dados. Minha paixão está em extrair insights 
-            valiosos de conjuntos de dados complexos e transformá-los em soluções práticas.
+            Sou um estudante fascinado por dados. Tudo começou ajudando na loja dos meus pais, onde, aos 16 anos, eu criava pequenos scripts em <span className="highlight">Excel/VBA</span> para automatizar tarefas repetitivas,
+            como alimentar planilhas de vendas a partir de outras fontes de dados. Atualmente, utilizo tecnologia para facilitar processos, como o cadastro de notas fiscais no sistema de gestão, usando tecnologias como <a className='orange-text' href="https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres"> OCR </a> 
+            e <a className='orange-text' href="https://pt.wikipedia.org/wiki/Extract,_transform,_load">ETL</a>.
           </p>
           
           <p>
-            Com formação em tecnologia e certificações em <span className="highlight">AWS</span> e 
-            <span className="highlight">Oracle Next Education</span>, combinada com minhas habilidades 
-            em <span className="highlight">SQL</span>, <span className="highlight">Python</span> e 
-            <span className="highlight">ETL</span>, estou sempre buscando novas formas de aplicar 
-            o poder dos dados para resolver problemas do mundo real.
+            Com formação em tecnologia e certificações como <span className="highlight text-orange"><a href="https://escoladanuvem.org/">AWS Cloud Practitioner (EDN)</a></span> e  
+            <span className="highlight text-orange"><a href="https://www.pa.senac.br/">Programador de Sistemas (Senac)</a></span>, entre várias outras que você pode ver no meu <a className="text-orange" href={personalInfo.linkedin}>LinkedIn</a>,
+            junto com minha noção de processos, busco por novas formas de aplicar o poder dos dados para resolver problemas do mundo real.
           </p>
           
           <p>
-            Quando não estou codificando ou analisando dados, gosto de explorar novas tecnologias, 
-            contribuir para projetos de código aberto e compartilhar conhecimento com a comunidade.
+            Quando não estou codificando ou analisando dados, gosto de explorar habilidades pessoais como <span className="highlight text-orange">musculação</span> e <span className="highlight text-orange">corrida</span>. Meu próximo objetivo de desenvolvimento pessoal
+            está focado em comunicação, com ênfase em <span className="highlight text-orange">oratória</span>  e <span className="highlight text-orange">storytelling</span> .
           </p>
         </div>
       </div>

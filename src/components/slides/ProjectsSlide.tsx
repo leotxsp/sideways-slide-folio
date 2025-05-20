@@ -26,15 +26,16 @@ const ProjectsSlide: React.FC = () => {
     'Linguagens': ['Python', 'Typescript', 'javascript'],
     'Frameworks': ['React', 'PyQt', 'Tailwind', 'Vite'],
     'Categorias': ['Frontend', 'Backend', 'Data', 'AI'],
-    'Bibliotecas': ['Pandas', 'Matplotlib', 'Tensorflow', 'XML', 'colabs']
+    'Bibliotecas': ['Pandas', 'Matplotlib', 'Tensorflow', 'XML', 'colabs'],
+    'Ferramentas': ['Git', 'Github', 'AWS', 'SQL', 'lovable'],
   };
 
   // Updated projects data with more detailed tags
   const projects = [
     {
       title: 'XML Handler',
-      description: 'Uma ferramenta Python que manipula XMLs de notas fiscais e os exibe em uma tabela PyQt para visualização. Utiliza pandas para manipulação de dados.',
-      tags: ['Python', 'PyQt', 'XML', 'Pandas', 'Backend', 'Data'],
+      description: 'Uma ferramenta Python que manipula XMLs de notas fiscais e os exibe em uma tabela PyQt para visualização. Utiliza pandas e XMLetree para manipulação de dados.',
+      tags: ['Python', 'PyQt', 'XML', 'Pandas', 'Backend', 'Data','Git'],
       github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
       image: 'https://github.com/leotxsp/sideways-slide-folio/blob/main/public/XMLHANDLER.png?raw=true'
@@ -42,7 +43,7 @@ const ProjectsSlide: React.FC = () => {
     {
       title: 'Site de Portfólio',
       description: 'meu portfólio online, desenvolvido com Vite, Tailwind CSS e React. Apresenta meus projetos e habilidades de forma interativa.',
-      tags: ['Vite', 'Tailwind', 'Typescript', 'React', 'javascript', 'Frontend'],
+      tags: ['Vite', 'Tailwind', 'Typescript', 'React', 'javascript', 'Frontend', 'lovable','Git'],
       github: 'https://github.com/leotxsp/XMLHandler',
       live: '',
       image: 'https://github.com/leotxsp/sideways-slide-folio/blob/main/public/Portifolio.png?raw=true'
@@ -50,34 +51,10 @@ const ProjectsSlide: React.FC = () => {
     {
       title: 'Deep Audio Classifier',
       description: 'Um projeto de IA que reconhece sons e os classifica em categorias específicas. Utiliza aprendizado de máquina para treinar modelos de reconhecimento de som de pássaros.',
-      tags: ['Python', 'Matplotlib', 'Tensorflow', 'Pandas', 'colabs', 'AI', 'Data'],
+      tags: ['Python', 'Matplotlib', 'Tensorflow', 'Pandas', 'colabs', 'AI', 'Data', 'Git'],
       github: 'https://github.com/leotxsp/Ai-Para-reconhecimento-de-som-Deep-Audio-Classifier-',
       live: '',
       image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b'
-    },
-    {
-      title: 'Todo App',
-      description: 'Aplicativo de tarefas usando React e TypeScript com backend em Node.js',
-      tags: ['React', 'Typescript', 'javascript', 'Frontend', 'Backend'],
-      github: 'https://github.com/leotxsp/todo-app',
-      live: '',
-      image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6'
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'Dashboard de clima que consome API de previsão do tempo',
-      tags: ['React', 'API', 'Frontend', 'javascript'],
-      github: 'https://github.com/leotxsp/weather-dashboard',
-      live: '',
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d'
-    },
-    {
-      title: 'Data Analytics Tool',
-      description: 'Ferramenta para análise de grandes conjuntos de dados',
-      tags: ['Python', 'Pandas', 'AI', 'Data'],
-      github: 'https://github.com/leotxsp/data-analytics',
-      live: '',
-      image: 'https://images.unsplash.com/photo-1518770660439-4636190af475'
     },
   ];
 

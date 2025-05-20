@@ -21,9 +21,10 @@ const SkillsSlide: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   
   const certifications = [
+    'Ciencia da Computação - Cursando - Estácio',
+    'AWS Certified Cloud Practitioner',
     'AWS re/Start Graduate',
-    'Curso de Java',
-    'Ciência de Dados',
+    'Curso de Programador de Sistemas - Senac',
     'Programa Oracle Next Education F2 T5 Back-end',
   ];
 

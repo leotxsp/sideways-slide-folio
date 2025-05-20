@@ -19,11 +19,7 @@ const HomeSlide: React.FC = () => {
           <br/>
           <br/><span className="text-orange">{personalInfo.location}</span>
         </p>
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
-          {personalInfo.skills.map((skill, index) => (
-            <span key={index} className="skill-tag">{skill.name}</span>
-          ))}
-        </div>
+
         
         {/* GitHub Contributions Chart */}
         <div className="w-full mt-6">
