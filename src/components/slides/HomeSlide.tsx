@@ -2,6 +2,7 @@
 import React from 'react';
 import { personalInfo } from '@/data/personalInfo';
 import { Github } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const HomeSlide: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const HomeSlide: React.FC = () => {
         </p>
         <div className="flex flex-wrap justify-center gap-3 mb-10">
           {personalInfo.skills.map((skill, index) => (
-            <span key={index} className="skill-tag">{skill}</span>
+            <span key={index} className="skill-tag">{skill.name}</span>
           ))}
         </div>
         

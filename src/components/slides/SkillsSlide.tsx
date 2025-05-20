@@ -1,8 +1,11 @@
+
 import React, { useEffect, useState, useCallback } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, Award } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { personalInfo } from '@/data/personalInfo';
 import CredlyBadgesCarousel from '../../components/CredlyBadgesCarousel';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 interface Badge {
   id: string;
@@ -14,6 +17,7 @@ interface Badge {
 
 const SkillsSlide: React.FC = () => {
   const isMobile = useIsMobile();
+  const [isHovering, setIsHovering] = useState(false);
   
   const certifications = [
     'AWS re/Start Graduate',
@@ -74,6 +78,20 @@ const SkillsSlide: React.FC = () => {
     }
   ];
 
+  // Get skill level color based on proficiency
+  const getLevelColor = (level: string) => {
+    switch (level) {
+      case 'Advanced':
+        return 'bg-green-600/20 text-green-400 border-green-600/30';
+      case 'Intermediate':
+        return 'bg-orange/20 text-orange border-orange/30';
+      case 'Beginner':
+        return 'bg-purple/20 text-purple border-purple/30';
+      default:
+        return 'bg-purple/20 text-purple border-purple/30';
+    }
+  };
+
   // Mobile view content rendering
   const renderMobileContent = () => (
     <div className="h-full w-full flex flex-col items-center px-4 pb-16 overflow-hidden">
@@ -83,17 +101,26 @@ const SkillsSlide: React.FC = () => {
       
       <div className="w-full max-w-[100vw] space-y-6">
         {/* Skills Section */}
-        <div className="bg-purple/10 border border-purple/20 rounded-lg p-4 animate-fade-in w-full">
+        <div className="animate-fade-in w-full">
           <h3 className="text-xl font-bold mb-3 text-center">Habilidades Técnicas</h3>
-          <div className="flex flex-wrap justify-center gap-2">
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {personalInfo.skills.map((skill, index) => (
-              <span 
-                key={skill} 
-                className="skill-tag animate-fade-in text-xs"
+              <Card 
+                key={index}
+                className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {skill}
-              </span>
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">{skill.name}</h4>
+                    <Badge className={`${getLevelColor(skill.level)} text-xs`}>
+                      {skill.level}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -114,7 +141,11 @@ const SkillsSlide: React.FC = () => {
         
         {/* Credly Badges Section */}
         <div className="animate-fade-in w-full max-w-[100vw]">
-          <CredlyBadgesCarousel badges={credlyBadges} isMobile={isMobile} />
+          <CredlyBadgesCarousel 
+            badges={credlyBadges} 
+            isMobile={isMobile} 
+            autoplayDelay={3000}
+          />
         </div>
       </div>
     </div>
@@ -132,15 +163,23 @@ const SkillsSlide: React.FC = () => {
           <div className="mb-4">
             <h3 className="text-2xl font-semibold text-center">Habilidades Técnicas</h3>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 w-full">
+          <div className="grid grid-cols-1 gap-3 w-full">
             {personalInfo.skills.map((skill, index) => (
-              <span 
-                key={skill} 
-                className="skill-tag animate-fade-in hover:bg-orange/30 hover:border-orange/40 transition-colors"
-                style={{ animationDelay: `${index * 0.1}s` }}
+              <Card 
+                key={index}
+                className="bg-purple/5 border-purple/20 hover:border-orange/30 transition-all animate-fade-in"
+                style={{ animationDelay: `${index * 0.05}s` }}
               >
-                {skill}
-              </span>
+                <CardContent className="p-4">
+                  <div className="flex justify-between items-center">
+                    <h4 className="font-medium">{skill.name}</h4>
+                    <Badge className={`${getLevelColor(skill.level)} text-xs`}>
+                      {skill.level}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-cream/70 mt-1">{skill.category}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -158,7 +197,11 @@ const SkillsSlide: React.FC = () => {
           
           {/* Credly Badges Section */}
           <div className="mt-6 w-full">
-            <CredlyBadgesCarousel badges={credlyBadges} isMobile={isMobile} />
+            <CredlyBadgesCarousel 
+              badges={credlyBadges} 
+              isMobile={isMobile} 
+              autoplayDelay={3000}
+            />
           </div>
         </div>
       </div>
@@ -166,7 +209,13 @@ const SkillsSlide: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 overflow-x-hidden ">
+    <div 
+      className="flex flex-col justify-center items-center h-full w-full py-16 md:py-24 overflow-x-hidden"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)} 
+      onTouchStart={() => setIsHovering(true)}
+      onTouchEnd={() => setIsHovering(false)}
+    >
       {isMobile ? renderMobileContent() : renderDesktopContent()}
     </div>
   );

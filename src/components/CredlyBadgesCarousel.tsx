@@ -1,3 +1,4 @@
+
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Award } from 'lucide-react';
@@ -26,9 +27,9 @@ const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({
     loop: true,
     dragFree: false,
     skipSnaps: true,
-    duration: 2500 
   });
   
+  const [isHovering, setIsHovering] = useState(false);
   const autoplayIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollNext = useCallback(() => {
@@ -44,33 +45,26 @@ const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({
   }, []);
 
   const startAutoplay = useCallback(() => {
-    if (!emblaApi) return;
+    if (!emblaApi || isHovering) return;
     stopAutoplay();
     autoplayIntervalRef.current = setInterval(scrollNext, autoplayDelay);
-  }, [autoplayDelay, emblaApi, scrollNext, stopAutoplay]);
+  }, [autoplayDelay, emblaApi, isHovering, scrollNext, stopAutoplay]);
 
   useEffect(() => {
     if (!emblaApi) return;
     startAutoplay();
     return () => stopAutoplay();
-  }, [emblaApi, startAutoplay, stopAutoplay]);
+  }, [emblaApi, startAutoplay, stopAutoplay, isHovering]);
 
   useEffect(() => {
     if (!emblaApi) return;
     
-    const onPointerDown = () => stopAutoplay();
-    const onSettle = () => {
-      if (!autoplayIntervalRef.current) startAutoplay();
-    };
-    
-    emblaApi.on('pointerDown', onPointerDown);
-    emblaApi.on('settle', onSettle);
-    
-    return () => {
-      emblaApi.off('pointerDown', onPointerDown);
-      emblaApi.off('settle', onSettle);
-    };
-  }, [emblaApi, startAutoplay, stopAutoplay]);
+    if (isHovering) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  }, [emblaApi, isHovering, startAutoplay, stopAutoplay]);
 
   return (
     <div className="w-full">
@@ -82,8 +76,10 @@ const CredlyBadgesCarousel: React.FC<CredlyBadgesCarouselProps> = ({
       <div 
         ref={emblaRef} 
         className="overflow-hidden w-full embla"
-        onMouseEnter={stopAutoplay}
-        onMouseLeave={startAutoplay}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        onTouchStart={() => setIsHovering(true)}
+        onTouchEnd={() => setIsHovering(false)}
       >
         <div className="flex">
           {badges.map((badge) => (

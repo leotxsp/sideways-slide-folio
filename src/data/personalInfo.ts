@@ -8,6 +8,17 @@ export const personalInfo = {
   location: "Brasil",
   linkedin: "https://www.linkedin.com/in/leonardosimplicio/",
   github: "https://github.com/leotxsp",
-  skills: [],
+  skills: [
+    { name: "Python", category: "Programming", level: "Advanced" },
+    { name: "Data Science", category: "Data", level: "Intermediate" },
+    { name: "Machine Learning", category: "Data", level: "Intermediate" },
+    { name: "Java", category: "Programming", level: "Intermediate" },
+    { name: "JavaScript", category: "Web", level: "Intermediate" },
+    { name: "AWS", category: "Cloud", level: "Intermediate" },
+    { name: "SQL", category: "Database", level: "Intermediate" },
+    { name: "React", category: "Web", level: "Beginner" },
+    { name: "Node.js", category: "Web", level: "Beginner" },
+    { name: "TypeScript", category: "Programming", level: "Beginner" },
+  ],
   shortBio: "Um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho na área.",
 };
