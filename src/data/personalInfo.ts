@@ -9,5 +9,5 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/leonardosimplicio/",
   github: "https://github.com/leotxsp",
   skills: [],
-  shortBio: "Um profissional de tecnologia com experiência em Python, SQL e AWS. Apaixonado por ciência de dados e desenvolvimento de software.",
+  shortBio: "Um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho na área.",
 };

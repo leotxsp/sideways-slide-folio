@@ -31,18 +31,10 @@ const HomeSlide: React.FC = () => {
             <span className="text-orange">GitHub Contributions</span>
           </h3>
           <div className="bg-dark/50 border border-purple/30 rounded-lg p-4 flex items-center justify-center animate-fade-in">
-            <iframe 
-              src="https://ghchart.rshah.org/fe6807/leotxsp" 
-              width="100%" 
-              height="100" 
-              frameBorder="0"
-              title="GitHub Contribution Chart"
-              className="rounded"
-            ></iframe>
+            <a href="https://git.io/streak-stats">
+              <img src="https://streak-stats.demolab.com?user=leotxsp&theme=highcontrast&locale=pt_BR&mode=weekly" alt="GitHub Streak" />
+            </a>
           </div>
-          <p className="text-center text-sm text-purple mt-2">
-            Veja mais no meu <a href="https://github.com/leotxsp" target="_blank" rel="noopener noreferrer" className="text-orange hover:underline">GitHub</a>
-          </p>
         </div>
       </div>
     </div>
