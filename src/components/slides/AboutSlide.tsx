@@ -13,12 +13,12 @@ const AboutSlide: React.FC = () => {
           <p>
             Sou um estudante fascinado por dados. Tudo começou ajudando na loja dos meus pais, onde, aos 16 anos, eu criava pequenos scripts em <span className="highlight">Excel/VBA</span> para automatizar tarefas repetitivas,
             como alimentar planilhas de vendas a partir de outras fontes de dados. Atualmente, utilizo tecnologia para facilitar processos, como o cadastro de notas fiscais no sistema de gestão, usando tecnologias como <a className='orange-text' href="https://pt.wikipedia.org/wiki/Reconhecimento_%C3%B3tico_de_caracteres"> OCR </a> 
-            e <a className='orange-text' href="https://pt.wikipedia.org/wiki/Extract,_transform,_load">ETL</a>.
+            e <a className='orange-text highlight' href="https://pt.wikipedia.org/wiki/Extract,_transform,_load">ETL</a>.
           </p>
           
           <p>
             Com formação em tecnologia e certificações como <span className="highlight text-orange"><a href="https://escoladanuvem.org/">AWS Cloud Practitioner (EDN)</a></span> e  
-            <span className="highlight text-orange"><a href="https://www.pa.senac.br/">Programador de Sistemas (Senac)</a></span>, entre várias outras que você pode ver no meu <a className="text-orange" href={personalInfo.linkedin}>LinkedIn</a>,
+            <span className="highlight text-orange"><a href="https://www.pa.senac.br/">Programador de Sistemas (Senac)</a></span>, entre várias outras que você pode ver no meu <a className="text-orange highlight" href={personalInfo.linkedin}>LinkedIn</a>,
             junto com minha noção de processos, busco por novas formas de aplicar o poder dos dados para resolver problemas do mundo real.
           </p>
           

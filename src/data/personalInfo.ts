@@ -23,5 +23,5 @@ export const personalInfo = {
     { name: "TypeScript", category: "Programming", level: "Beginner" },
     { name: "Tensorflow", category: "AI", level: "Beginner" },
   ],
-  shortBio: "Um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho.",
+  shortBio: "Olá eu sou o Léo, tenho 21 anos e sou um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho.",
 };

@@ -32,7 +32,6 @@ const WorkingOnSlide: React.FC = () => {
               <li>API RESTful para facilitar a integração com diversos sistemas</li>
               <li>Interface web moderna para visualização e manipulação dos dados</li>
               <li>Recursos adicionais de processamento e análise de notas fiscais</li>
-              <li>Sistema de autenticação e controle de acesso</li>
             </ul>
 
             <p className="text-cream text-lg leading-relaxed">
@@ -44,6 +43,13 @@ const WorkingOnSlide: React.FC = () => {
             <p className="text-purple text-lg font-medium">
               Previsão de conclusão: Segundo trimestre de 2025
             </p>
+            <h3 className="text-2xl md:text-3xl font-semibold text-orange mb-4">Cursos em progresso</h3>
+            <ul className="list-disc pl-6 space-y-2 text-cream">
+              <li>Formação React Native Developer - DIO - complemento a faculdade</li>
+              <li>Formação Machine Learning Specialist - DIO - desenvovimento tecnico pessoal</li>
+              <li>Formação SQL Database Specialist - DIO - desenvovimento tecnico pessoal</li>
+            </ul>
+
           </div>
         </Card>
       </div>
