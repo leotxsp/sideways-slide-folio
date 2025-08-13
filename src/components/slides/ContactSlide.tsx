@@ -25,45 +25,46 @@ const ContactSlide: React.FC = () => {
   
       <div className="grid grid-cols-1 gap-6">
         {/* Email Card */}
-        <div className="card">
-          <div className="blob"></div>
-          <div className="bg">
-            <Mail className="w-6 h-6 text-orange mb-2" />
-            <h3 className="text-md font-semibold mb-1">Email</h3>
-            <a href={`mailto:${personalInfo.email}`} className="text-sm break-words text-cream">
-              {personalInfo.email}
-            </a>
+        <a href={`mailto:${personalInfo.email}`} className="block">
+          <div className="card cursor-pointer">
+            <div className="blob"></div>
+            <div className="bg">
+              <Mail className="w-6 h-6 text-orange mb-2" />
+              <h3 className="text-md font-semibold mb-1">Email</h3>
+              <span className="text-sm break-words text-cream">
+                {personalInfo.email}
+              </span>
+            </div>
           </div>
-        </div>
-  
+        </a>
+
         {/* Phone Card */}
-        <div className="card">
-          <div className="blob"></div>
-          <div className="bg">
-            <Phone className="w-6 h-6 text-orange mb-2" />
-            <h3 className="text-md font-semibold mb-1">Whatsapp</h3>
-            <a href={`tel:${personalInfo.whatsapp}`} className="text-sm break-words text-cream">
-              {personalInfo.phone}
-            </a>
+        <a href={personalInfo.whatsapp} target="_blank" rel="noopener noreferrer" className="block">
+          <div className="card cursor-pointer">
+            <div className="blob"></div>
+            <div className="bg">
+              <Phone className="w-6 h-6 text-orange mb-2" />
+              <h3 className="text-md font-semibold mb-1">Whatsapp</h3>
+              <span className="text-sm break-words text-cream">
+                {personalInfo.phone}
+              </span>
+            </div>
           </div>
-        </div>
-  
+        </a>
+
         {/* LinkedIn Card */}
-        <div className="card">
-          <div className="blob"></div>
-          <div className="bg">
-            <Linkedin className="w-6 h-6 text-orange mb-2" />
-            <h3 className="text-md font-semibold mb-1">LinkedIn</h3>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm break-words text-cream"
-            >
-              leonardosimplicio
-            </a>
+        <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="block">
+          <div className="card cursor-pointer">
+            <div className="blob"></div>
+            <div className="bg">
+              <Linkedin className="w-6 h-6 text-orange mb-2" />
+              <h3 className="text-md font-semibold mb-1">LinkedIn</h3>
+              <span className="text-sm break-words text-cream">
+                leonardosimplicio
+              </span>
+            </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   );
@@ -104,7 +105,7 @@ const ContactSlide: React.FC = () => {
           </a>
 
           {/* Phone */}
-        <a href={`mailto:${personalInfo.whatsapp}`} className="w-full">
+        <a href={personalInfo.whatsapp} target="_blank" rel="noopener noreferrer" className="w-full">
           <div className="box">
             <span></span>
             <div className="content">
@@ -120,7 +121,7 @@ const ContactSlide: React.FC = () => {
         </a>
 
           {/* LinkedIn */}
-        <a href={`mailto:${personalInfo.linkedin}`} className="w-full">
+        <a href={personalInfo.linkedin} target="_blank" rel="noopener noreferrer" className="w-full">
           <div className="box">
             <span></span>
             <div className="content">
