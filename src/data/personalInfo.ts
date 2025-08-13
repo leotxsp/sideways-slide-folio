@@ -11,8 +11,8 @@ export const personalInfo = {
   whatsapp: "https://wa.me/559193326166",
 
   skills: [
-    { name: "Python", category: "Programming", level: "Advanced" },
-    { name: "Data Science", category: "Data", level: "Intermediate" },
+    { name: "Python", category: "Programming", level: "Beginner" },
+    { name: "Data Science", category: "Data", level: "Beginner" },
     { name: "Machine Learning", category: "Data", level: "Beginner" },
     { name: "Java", category: "Programming", level: "Beginner" },
     { name: "JavaScript", category: "Web", level: "Beginner" },
@@ -23,5 +23,5 @@ export const personalInfo = {
     { name: "TypeScript", category: "Programming", level: "Beginner" },
     { name: "Tensorflow", category: "AI", level: "Beginner" },
   ],
-  shortBio: "Olá eu sou o Léo, tenho 21 anos e sou um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho.",
+  shortBio: "Olá eu sou o Léo, tenho 22 anos e sou um estudante de ciência da computação entusiasta de dados e desenvolvimento pessoal, atualmente buscando pela primeira oportunidade de trabalho.",
 };
